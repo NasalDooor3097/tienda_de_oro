@@ -1,0 +1,63 @@
+body
+{
+    font-family: arial, helvetica;
+    background:ghostwhite;
+}
+
+.navegacion
+{
+    list-style: none;
+    padding: 0;
+    background:ghostwhite;
+    width: 90%;
+    max-width: 1000000000000000px;
+    margin:auto;
+
+}
+
+.navegacion li a
+{
+
+    text-decoration:none;
+    color:black ;
+    padding: 10px;
+    display: block;
+
+}
+
+.navegacion li a:hover
+{
+    background:darkgray;
+}
+
+.navegacion li
+{
+
+    display: inline-block;
+    text-align: center;
+}
+
+.titulo h1
+{
+    color:black;
+    text-align: center;
+    padding: 150px;
+}
+
+.formulario
+{
+    position:static;
+    text-align: center;
+    top: -110px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
+    display: block;
+}
+
+.formulario input
+{
+    font-size: medium;
+}
+footer
+{
+    padding-top: 650px;;
+}
