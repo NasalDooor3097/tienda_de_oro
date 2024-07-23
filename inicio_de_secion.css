@@ -37,21 +37,24 @@ body
     text-align: center;
 }
 
-.titulo h1
+.titulo  
 {
-    color:black;
+    display: block;
+    padding: 30px;
+    font-size: 30px;
     text-align: center;
-    padding: 100px;
+    font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;    
 }
 
 .formulario
 {
-    position:static;
     text-align: center;
-    top: -110px;
+    padding: 10px;
     font-family:Cambria, Cochin, Georgia, Times, 'Times New Roman', serif ;
     display: block;
+    
 }
+
 
 .formulario input
 {
@@ -59,5 +62,14 @@ body
 }
 footer
 {
-    padding-top: 650px;;
+    display: block;
+    padding-top: 200px;
 }
+.duendeIMG
+{
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+}
+
