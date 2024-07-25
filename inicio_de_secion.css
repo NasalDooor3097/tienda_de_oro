@@ -2,6 +2,7 @@ body
 {
     font-family: arial, helvetica;
     background:ghostwhite;
+    font-family: "Montserrat", "sans-serif";
 }
 
 .navegacion
@@ -12,6 +13,7 @@ body
     width: 90%;
     max-width: 1000000000000000px;
     margin:auto;
+    
 
 }
 
@@ -22,12 +24,28 @@ body
     color:black ;
     padding: 10px;
     display: block;
-
+    position: relative;
 }
 
-.navegacion li a:hover
+
+
+.navegacion li a::after
 {
-    background:darkgray;
+    content: "";
+    background-color: darkgray;
+    position: absolute;
+    left: 0%;
+    top: calc(100% + 4px);
+    width: 100%;
+    height: 4px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.navegacion a:hover::after
+{
+    opacity: 0.8;
+    color: aqua;
 }
 
 .navegacion li
