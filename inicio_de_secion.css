@@ -45,7 +45,6 @@ body
 .navegacion a:hover::after
 {
     opacity: 0.8;
-    color: aqua;
 }
 
 .navegacion li
@@ -82,7 +81,7 @@ body
 }
 footer
 {
-    display: block;
+    display:flex;
     position: fixed;
     bottom: 0;
     left: 0;
