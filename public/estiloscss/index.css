@@ -1,0 +1,67 @@
+body
+{
+    font-family: arial, helvetica;
+    background:ghostwhite;
+    font-family: "Montserrat", "sans-serif";
+}
+
+.navegacion
+{
+    list-style: none;
+    padding: 0;
+    background:ghostwhite;
+    width: 90%;
+    max-width: 1000000000000000px;
+    margin:auto;
+    
+
+}
+
+.navegacion li a
+{
+
+    text-decoration:none;
+    color:black ;
+    padding: 10px;
+    display: block;
+    position: relative;
+}
+
+
+
+.navegacion li a::after
+{
+    content: "";
+    background-color: darkgray;
+    position: absolute;
+    left: 0%;
+    top: calc(100% + 4px);
+    width: 100%;
+    height: 4px;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.navegacion a:hover::after
+{
+    opacity: 0.8;
+}
+
+.navegacion li
+{
+
+    display: inline-block;
+    text-align: center;
+}
+
+main
+{
+    width: 100%;
+    min-height: 600px;
+}
+iframe
+{
+    width: 100%;
+    min-height: 2000px;
+
+}

@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ingresar</title>
+    <link rel="stylesheet" href="../estiloscss/inicio_de_secion.css">
+
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">"
+    
+</head>
+<body>
+    
+    <header>
+        <div class="titulo">
+            <label>24 Kilates</label>
+        </div>
+    </header>
+
+    <div>
+
+        <br>
+        <img class="duendeIMG" src="../imagenes/duendi.jpg" alt="duende" >
+        
+    </div>
+
+    <main>
+        <form class="formulario">
+
+            <br>
+            <br>
+
+            <label>Ingrese su informacion</label>
+
+            <br>
+            <br>
+
+            <label for="correo">Ingresa tu correo</label>
+            <input type="email" id="correo" name="correo">
+
+            <br>
+            <br>
+
+            <label for="contraseña">ingresa tu constraseña</label>
+            <input type="password" id="contraseña" name="contraseña">
+
+            <br>
+            <br>
+
+            <button class="ingresa" onclick="validar_datos_del_login()" type="button">Ingresar</button>
+
+            <br>
+            <br>
+
+            <label for="recuperar_contraseña">¿Olvidaste tu contraseña?</label>
+            <button class="contraseñaolvidada" type="button" id="recuperar_contraseña" name="recuperar_contraseña">Recuperarla</button>
+
+        </form>
+    </main>
+</body>
+</html>
