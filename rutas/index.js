@@ -16,4 +16,7 @@ router.get("/inicio_de_secion", function(req, res){
     res.render("inicio_de_secion", {link});
 });
 
+router.get("/paginasHTML/perfil.ejs", function(req, res){
+    res.render("perfil", {link});
+});
 module.exports = router;
