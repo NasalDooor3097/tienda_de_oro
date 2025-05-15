@@ -15,7 +15,7 @@ const SobreNosotros = () => {
       <section className="section">
         <h2>Quiénes Somos</h2>
         <p>
-          [Texto descriptivo sobre tu empresa. Ejemplo: "Somos una plataforma fundada en 20XX con el objetivo de conectar a vendedores independientes con compradores de todo el mundo. Nuestra misión es democratizar el comercio electrónico."]
+          [Somos una plataforma fundada en 2024 con el objetivo de conectar a vendedores independientes con compradores de todo Mexico. Nuestra misión es democratizar el comercio electrónico."]
         </p>
       </section>
 
@@ -48,12 +48,7 @@ const SobreNosotros = () => {
         </ul>
       </section>
 
-      {/* Llamada a la acción (CTA) */}
-      <section className="cta-section">
-        <h2>¿Listo para unirte?</h2>
-        <p>Regístrate como vendedor y empieza a vender hoy mismo.</p>
-        <button className="cta-button">Empieza Ahora</button>
-      </section>
+ 
     </div>
   );
 };

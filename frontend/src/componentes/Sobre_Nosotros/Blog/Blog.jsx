@@ -11,39 +11,55 @@ import { BsArrowRight } from "react-icons/bs";
 const initialPosts = [
   {
     id: 1,
-    title: "Cómo vender más en tu marketplace",
+    title: "Cómo destacar tus productos de tecnología en el mercado",
     excerpt:
-      "Aprende las estrategias clave para aumentar tus ventas en nuestra plataforma.",
-    author: "Equipo Marketplace",
-    date: "15 Mayo 2023",
-    tags: ["Ventas", "Consejos"],
+      "Consejos esenciales para presentar y vender tus dispositivos electrónicos de manera efectiva.",
+    author: "Equipo TecnoMarket",
+    date: "15 Mayo 2025",
+    tags: ["Tecnología", "Ventas"],
     image:
-      "https://images.unsplash.com/photo-1551434678-e076c223a692?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    content: "Contenido completo del artículo...",
+      "https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+    content:
+      "En este artículo exploramos las mejores prácticas para vender productos tecnológicos, desde cómo describir sus características técnicas hasta cómo presentarlos visualmente para atraer a los compradores más exigentes...",
   },
   {
     id: 2,
-    title: "Tendencias de e-commerce para 2023",
+    title: "Artesanías Mexicanas: Tradición que vende",
     excerpt:
-      "Descubre las tendencias que están marcando este año en el comercio electrónico.",
-    author: "Ana Pérez",
-    date: "22 Abril 2023",
-    tags: ["Tendencias", "E-commerce"],
+      "Descubre cómo comercializar las hermosas artesanías tradicionales de México en plataformas digitales.",
+    author: "María González",
+    date: "22 Abril 2025",
+    tags: ["Artesanías", "México"],
     image:
-      "https://images.unsplash.com/photo-1460925895917-afdab827c52f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    content: "Contenido completo del artículo...",
+      "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQJx4I9XtkYB7g_V6iKdVUXRunzNRd37wJTsA&s",
+    content:
+      "Las artesanías mexicanas son apreciadas mundialmente por su calidad y tradición. Aprende cómo empaquetarlas adecuadamente para envíos internacionales, cómo contar la historia detrás de cada pieza y dónde encontrar los mejores materiales...",
   },
   {
     id: 3,
-    title: "Guía para nuevos vendedores",
+    title: "Invertir en oro: Guía para principiantes",
     excerpt:
-      "Todo lo que necesitas saber para empezar a vender en nuestra plataforma.",
-    author: "Carlos Rodríguez",
-    date: "10 Marzo 2023",
-    tags: ["Guías", "Vendedores"],
+      "Todo lo que necesitas saber para comprar y vender oro de manera segura en nuestro marketplace.",
+    author: "Roberto Mendoza",
+    date: "10 Marzo 2025",
+    tags: ["Oro", "Inversiones"],
     image:
-      "https://images.unsplash.com/photo-1526947425960-945c6e72858f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
-    content: "Contenido completo del artículo...",
+      "https://images.unsplash.com/photo-1589829545856-d10d557cf95f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+    content:
+      "El oro sigue siendo una de las inversiones más seguras. En esta guía te explicamos cómo identificar oro auténtico, calcular su valor actual y las regulaciones importantes que debes conocer antes de comercializarlo...",
+  },
+  {
+    id: 4,
+    title: "Tendencias en gadgets tecnológicos 2023",
+    excerpt:
+      "Los dispositivos tecnológicos que están dominando el mercado este año.",
+    author: "Laura Tech",
+    date: "5 Junio 2025",
+    tags: ["Gadgets", "Tecnología"],
+    image:
+      "https://images.unsplash.com/photo-1516035069371-29a1b244cc32?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60",
+    content:
+      "Exploramos los gadgets más populares del momento, desde wearables hasta dispositivos para el hogar inteligente, y cómo posicionarlos en el mercado competitivo de la tecnología...",
   },
 ];
 
@@ -73,8 +89,8 @@ const Blog = () => {
       {!selectedPost ? (
         <>
           <section className="blog-header">
-            <h1>Blog del Marketplace</h1>
-            <p>Consejos, noticias y tendencias para vendedores y compradores</p>
+            <h1>Marketplace de Tecnología, Artesanías y Oro</h1>
+            <p>Consejos, guías y tendencias para vendedores y coleccionistas</p>
             <div className="search-bar">
               <input
                 type="text"
@@ -151,16 +167,74 @@ const Blog = () => {
             </div>
             <div className="post-content">
               <p>{selectedPost.content}</p>
-              <p>
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nullam
-                in dui mauris. Vivamus hendrerit arcu sed erat molestie
-                vehicula.
-              </p>
-              <p>
-                Sed auctor neque eu tellus rhoncus ut eleifend nibh porttitor.
-                Ut in nulla enim. Phasellus molestie magna non est bibendum non
-                venenatis nisl tempor.
-              </p>
+              {selectedPost.id === 1 && (
+                <>
+                  <h3>Consejos para fotografiar productos tecnológicos</h3>
+                  <p>
+                    La presentación visual es crucial para vender tecnología.
+                    Usa fondos limpios y neutros, muestra todos los ángulos del
+                    producto y, si es posible, incluye fotos del dispositivo en
+                    uso.
+                  </p>
+                  <h3>Especificaciones técnicas clave</h3>
+                  <p>
+                    No olvides incluir detalles como modelo exacto, año de
+                    fabricación, estado del producto (nuevo, reacondicionado o
+                    usado), y todas las especificaciones relevantes para tu
+                    categoría.
+                  </p>
+                </>
+              )}
+              {selectedPost.id === 2 && (
+                <>
+                  <h3>Tipos de artesanías mexicanas más demandadas</h3>
+                  <p>
+                    El mercado internacional valora especialmente la plata de
+                    Taxco, los textiles de Oaxaca, la cerámica de Talavera y las
+                    piezas de alebrijes. Conocer las particularidades de cada
+                    una te ayudará a comercializarlas mejor.
+                  </p>
+                  <h3>Certificados de autenticidad</h3>
+                  <p>
+                    Incluir certificados que garanticen el origen artesanal de
+                    tus productos puede aumentar significativamente su valor
+                    percibido y precio de venta.
+                  </p>
+                </>
+              )}
+              {selectedPost.id === 3 && (
+                <>
+                  <h3>Pureza del oro: qué significan los quilates</h3>
+                  <p>
+                    El oro de 24K es 99.9% puro, mientras que el de 18K contiene
+                    75% oro. Explicar claramente la pureza y el peso en gramos
+                    es fundamental para transacciones transparentes.
+                  </p>
+                  <h3>Precauciones de seguridad</h3>
+                  <p>
+                    Al vender oro, considera usar servicios de envío
+                    especializados con seguro y siempre realiza transacciones
+                    importantes en lugares seguros o a través de canales
+                    verificados.
+                  </p>
+                </>
+              )}
+              {selectedPost.id === 4 && (
+                <>
+                  <h3>Dispositivos más populares</h3>
+                  <p>
+                    Los smartwatches con monitoreo de salud, los auriculares con
+                    cancelación de ruido y los dispositivos para hogares
+                    inteligentes lideran las ventas este año.
+                  </p>
+                  <h3>Dónde encontrar proveedores confiables</h3>
+                  <p>
+                    Te mostramos las ferias tecnológicas más importantes y
+                    plataformas B2B donde puedes conectar con fabricantes y
+                    distribuidores autorizados.
+                  </p>
+                </>
+              )}
             </div>
           </article>
         </div>

@@ -3,7 +3,7 @@ import "./CSS/LoginSignup.css";
 import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import { FormContext } from "../context/FormContext";
-import logoGold from "./CSS/img/admin.jpg";
+import logoGold from "./CSS/img/4.jpeg";
 
 const LoginAdmin = () => {
   const {

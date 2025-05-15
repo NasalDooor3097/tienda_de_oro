@@ -8,14 +8,14 @@ const Footer = () => {
   return (
     <div className="footer">
       <div className="footer-logo">
-        <p>24 Kilates</p>
+        <p>GoldenXpress</p>
       </div>
       <ul className="footer-links">
-        <li>Company</li>
-        <li>Products</li>
-        <li>Offices</li>
-        <li>About</li>
-        <li>Contact</li>
+        <li>Compañia</li>
+        <li>Productos</li>
+        <li>Oficinas</li>
+        <li>Sobre Nosotros</li>
+        <li>Contacto</li>
       </ul>
 
       <div className="footer-social-icon">

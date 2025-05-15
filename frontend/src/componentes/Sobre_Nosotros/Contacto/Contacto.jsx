@@ -53,19 +53,19 @@ const Contacto = () => {
           <div className="info-card">
             <AiOutlineMail className="info-icon" />
             <h3>Correo Electrónico</h3>
-            <p>soporte@tumarketplace.com</p>
+            <p>GoldenXpress@gmail.com</p>
           </div>
 
           <div className="info-card">
             <AiOutlinePhone className="info-icon" />
             <h3>Teléfono</h3>
-            <p>+1 (555) 123-4567</p>
+            <p>+52 3326735624</p>
           </div>
 
           <div className="info-card">
             <AiOutlineEnvironment className="info-icon" />
             <h3>Dirección</h3>
-            <p>Av. Marketplace 123, Ciudad Digital</p>
+            <p>Av. Emiliano Zapata, Guadalajara</p>
           </div>
         </div>
 

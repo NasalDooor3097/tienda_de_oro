@@ -4,7 +4,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Axios from "axios";
 import Swal from "sweetalert2";
 import { FormContext } from "../context/FormContext";
-import logoGold from "./CSS/img/logo-gold.jpg";
+import logoGold from "./CSS/img/1.jpeg";
 
 const LoginSingnup = () => {
   const {

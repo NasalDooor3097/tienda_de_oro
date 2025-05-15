@@ -1,22 +1,44 @@
-import React from "react"; 
+import React from "react";
 import "./Offers.css";
-import exclusive_image from "../assets/imagen-oro.jpg";
+import exclusive_image from "../assets/offers.jpg";
 
 const Offers = () => {
-    return (
-        <div className="offers">
-            <div className="offers-left">
-                <h1>¡Ofertas Exclusivas!</h1>
-                <h2>Solo en productos seleccionados de BET SELLERS</h2>
-                <p>Descubre joyas de oro únicas y elegantes, diseñadas solo para ti. No dejes pasar esta oportunidad de obtener productos de lujo a precios inigualables.</p>
-                <button>Ver Colección</button>
-            </div>
+  return (
+    <div className="offers-container">
+      <div className="offers">
+        <div className="offers-content">
+          <h1>¡Grandes Ofertas de Vendedores Mexicanos!</h1>
+          <h2>Descubre lo mejor en tecnología, artesanías y joyería</h2>
 
-            <div className="offers-right">
-                <img src={exclusive_image} alt="Oferta Exclusiva" />
+          <div className="offer-features">
+            <div className="feature">
+              <span className="icon fire">🔥</span>
+              <span>Tecnología con garantía</span>
             </div>
+            <div className="feature">
+              <span className="icon hand">🖐️</span>
+              <span>Artesanías auténticas</span>
+            </div>
+            <div className="feature">
+              <span className="icon diamond">💎</span>
+              <span>Oro certificado</span>
+            </div>
+          </div>
+
+          <div className="offer-actions">
+            <button className="primary-btn">Explorar Productos</button>
+            <a href="/registro-vendedor" className="secondary-link">
+              ¿Eres vendedor?
+            </a>
+          </div>
         </div>
-    )
-}
+
+        <div className="offer-image-container">
+          <img src={exclusive_image} alt="Ofertas especiales" />
+        </div>
+      </div>
+    </div>
+  );
+};
 
 export default Offers;

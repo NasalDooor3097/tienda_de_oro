@@ -9,7 +9,7 @@ const PreguntasFrecuentes = () => {
     {
       pregunta: "¿Cómo me registro como vendedor?",
       respuesta:
-        "Ve a 'Registro > Vendedor', completa el formulario y sube documentos. Verificación en 24-48h.",
+        "Ve a 'perfil > Mis productos > vender producto ', completa el formulario y sube documentos. Verificación en 1-24h.",
     },
     {
       pregunta: "¿Qué comisiones cobran?",
@@ -19,17 +19,17 @@ const PreguntasFrecuentes = () => {
     {
       pregunta: "¿Cómo funcionan los envíos?",
       respuesta:
-        "Puedes usar nuestro sistema logístico o gestionarlo tú mismo. Los costos se calculan automáticamente.",
+        "Puedes usar nuestro sistema logístico o gestionarlo tú mismo.",
     },
     {
       pregunta: "¿Puedo editar un producto ya publicado?",
       respuesta:
-        "Sí, desde tu panel de vendedor. Los cambios se actualizan en 15 minutos.",
+        "Sí, desde tu panel de vendedor. Los cambios se actualizan al instante.",
     },
     {
       pregunta: "¿Qué métodos de pago aceptan?",
       respuesta:
-        "Tarjetas (Visa/MC/Amex), PayPal, transferencias bancarias y criptomonedas seleccionadas.",
+        "Tarjetas (Visa/MC/Amex), transferencias bancarias, y pagos en efectivo. Puedes elegir el método al finalizar la compra."
     },
   ];
 
@@ -75,10 +75,10 @@ const PreguntasFrecuentes = () => {
         <h2>¿Necesitas más ayuda?</h2>
         <div className="contact-buttons">
           <button className="contact-button whatsapp">
-            WhatsApp +1 234 567 890
+            WhatsApp +52 3326735624
           </button>
           <button className="contact-button email">
-            soporte@tumarketplace.com
+            GoldenXpress@gmail.com
           </button>
         </div>
       </section>

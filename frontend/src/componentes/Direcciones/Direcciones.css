@@ -1,0 +1,204 @@
+.direcciones-app {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  }
+  
+  .titulo-seccion {
+    color: #2c3e50;
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 28px;
+  }
+  
+  .direcciones-contenedor {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 30px;
+  }
+  
+  @media (min-width: 992px) {
+    .direcciones-contenedor {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .formulario-direccion {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .formulario-direccion h3 {
+    color: #000000;
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  
+  .form-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+    margin-bottom: 20px;
+  }
+  
+  @media (min-width: 576px) {
+    .form-grid {
+      grid-template-columns: 1fr 1fr;
+    }
+  }
+  
+  .form-group {
+    margin-bottom: 15px;
+  }
+  
+  .form-group label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 600;
+    color: #34495e;
+  }
+  
+  .form-group input,
+  .form-group select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    transition: border-color 0.3s;
+  }
+  
+  .form-group input:focus,
+  .form-group select:focus {
+    border-color: #3498db;
+    outline: none;
+  }
+  
+  .boton-primario {
+    background-color: #1abc9c;
+    color: white;
+    border: none;
+    padding: 12px 20px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    font-weight: 600;
+    width: 100%;
+    transition: background-color 0.3s;
+  }
+  
+  .boton-primario:hover {
+    background-color: #2980b9;
+  }
+  
+  .lista-direcciones {
+    background: #ffffff;
+    padding: 25px;
+    border-radius: 10px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .lista-direcciones h3 {
+    color: #000000;
+    margin-bottom: 20px;
+    font-size: 20px;
+  }
+  
+  .grid-direcciones {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 15px;
+  }
+  
+  .tarjeta-direccion {
+    border: 1px solid #e0e0e0;
+    border-radius: 8px;
+    padding: 15px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .tarjeta-direccion:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .tarjeta-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+  }
+  
+  .badge-vivienda {
+    background-color: #e3f2fd;
+    color: #1abc9c;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .badge-departamento {
+    background-color: #e8f5e9;
+    color: #388e3c;
+    padding: 3px 8px;
+    border-radius: 12px;
+    font-size: 12px;
+    font-weight: 600;
+  }
+  
+  .tarjeta-body p {
+    margin: 5px 0;
+    color: #555;
+  }
+  
+  .etiqueta {
+    font-weight: 600;
+    color: #333;
+  }
+  
+  .sin-direcciones {
+    text-align: center;
+    padding: 20px;
+    color: #7f8c8d;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+  }
+  
+  .sin-direcciones p {
+    margin: 5px 0;
+  }
+  .error {
+    border-color: #ff3860 !important;
+  }
+  
+  .error-message {
+    color: #ff3860;
+    font-size: 0.8rem;
+    margin-top: 0.25rem;
+  }
+  
+  .guardar-btn:disabled {
+    background-color: #cccccc;
+    cursor: not-allowed;
+  }
+  
+  .eliminar-btn {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    background: #ff3860;
+    color: white;
+    border: none;
+    border-radius: 50%;
+    width: 25px;
+    height: 25px;
+    cursor: pointer;
+  }
+  
+  .tarjeta-direccion {
+    position: relative;
+    /* ...otros estilos existentes... */
+  }
