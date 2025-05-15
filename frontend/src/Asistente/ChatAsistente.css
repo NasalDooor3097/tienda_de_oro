@@ -1,0 +1,29 @@
+
+.react-chatbot-kit-chat-container {
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1) !important;
+  border-radius: 10px !important;
+  overflow: hidden !important; 
+}
+.react-chatbot-kit-chat-bot-message {
+  margin-left: 0;
+}
+.react-chatbot-kit-chat-input {
+  border-radius: 20px !important;
+}
+/* Efecto de "typing" */
+.typing-indicator {
+  display: inline-block;
+  padding: 8px 12px;
+  background: #f1f1f1;
+  border-radius: 15px;
+  margin-left: 10px;
+  font-size: 14px;
+  color: #555;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  0% { opacity: 0.6; }
+  50% { opacity: 1; }
+  100% { opacity: 0.6; }
+}

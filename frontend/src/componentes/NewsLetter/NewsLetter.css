@@ -1,0 +1,120 @@
+.newsletter {
+  width: 65%;
+  height: 40vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin: auto;
+  padding: 0 20px;
+  margin-bottom: 150px;
+  background: linear-gradient(180deg, #ffffff 0%, #f0f0f0 60%);
+  gap: 30px;
+  position: relative;
+  top: 1300px;
+  border-radius: 15px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  text-align: center;
+}
+
+.newsletter h1 {
+  color: #000;
+  font-size: 2.5rem;
+  margin-bottom: 10px;
+}
+
+.newsletter p {
+  color: #333;
+  font-size: 1.2rem;
+}
+
+.newsletter-input-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #fff;
+  width: 100%;
+  max-width: 730px;
+  height: 70px;
+  border-radius: 80px;
+  border: 2px solid #000;
+  overflow: hidden;
+}
+
+.newsletter input {
+  flex: 1;
+  padding: 0 20px;
+  border: none;
+  outline: none;
+  color: #000;
+  font-size: 1rem;
+  border-radius: 80px 0 0 80px;
+  background: #f9f9f9;
+}
+
+.newsletter input::placeholder {
+  color: #888;
+}
+
+.newsletter button {
+  width: 210px;
+  height: 70px;
+  border-radius: 0 80px 80px 0;
+  background: #000;
+  color: #fff;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.newsletter button:hover {
+  background-color: #333;
+  transform: scale(1.05);
+}
+
+
+@media (max-width: 768px) {
+  .newsletter {
+    width: 90%;
+    padding: 0 10px;
+  }
+
+  .newsletter h1 {
+    font-size: 2rem;
+  }
+
+  .newsletter p {
+    font-size: 1rem;
+  }
+
+  .newsletter-input-container {
+    flex-direction: column;
+    height: auto;
+    border-radius: 20px;
+  }
+
+  .newsletter input {
+    width: 100%;
+    border-radius: 20px 20px 0 0;
+    margin-bottom: 10px;
+  }
+
+  .newsletter button {
+    width: 100%;
+    border-radius: 0 0 20px 20px;
+  }
+}
+
+@media (max-width: 480px) {
+  .newsletter h1 {
+    font-size: 1.5rem;
+  }
+
+  .newsletter p {
+    font-size: 0.9rem;
+  }
+
+  .newsletter button {
+    font-size: 0.9rem;
+  }
+}

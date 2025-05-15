@@ -1,0 +1,124 @@
+/* Estilos base de la barra de búsqueda */
+.search {
+  position: relative;
+  background-color: #ffffff;
+  width: 90%;
+  max-width: 600px;
+  border-radius: 30px;
+  height: 60px;
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  margin: 30px auto;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  border: 1px solid #e0e0e0;
+  transition: all 0.3s ease;
+}
+
+.search:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.15);
+}
+
+.input_search {
+  font-size: 16px;
+  flex: 1;
+  border: 0;
+  outline: 0;
+  background-color: transparent;
+  font-weight: 500;
+  color: #333333;
+  padding: 8px 0;
+  cursor: default; 
+}
+
+.input_search:focus {
+  cursor: text;
+}
+
+.input_search::placeholder {
+  color: #999999;
+  opacity: 1;
+}
+
+.button_search {
+  background-color: #000000;
+  border: 0;
+  height: 45px;
+  width: 45px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.3s ease;
+}
+
+.button_search:hover {
+  background-color: #3a5a8f;
+}
+
+.icono_search {
+  color: white;
+  font-size: 18px;
+  transition: transform 0.2s ease;
+}
+
+.button_search:hover .icono_search {
+  transform: scale(1.1);
+}
+
+/* Estilos para el historial de búsquedas */
+.history-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  background: white;
+  border-radius: 0 0 15px 15px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+  z-index: 100;
+  margin-top: -10px;
+  padding: 10px 0;
+  max-height: 200px;
+  overflow-y: auto;
+  animation: fadeIn 0.2s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(-10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.history-item {
+  padding: 10px 20px;
+  cursor: pointer; /* Los items del historial mantienen cursor pointer */
+  color: #333;
+  transition: all 0.2s;
+}
+
+.history-item:hover {
+  background-color: #f5f5f5;
+  color: #4a6fa5;
+}
+
+/* Responsive para móviles */
+@media (max-width: 768px) {
+  .search {
+    height: 50px;
+    padding: 0 15px;
+    margin: 20px auto;
+  }
+  
+  .input_search {
+    font-size: 14px;
+  }
+  
+  .button_search {
+    height: 40px;
+    width: 40px;
+  }
+  
+  .icono_search {
+    font-size: 16px;
+  }
+}

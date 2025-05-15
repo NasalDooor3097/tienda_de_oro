@@ -1,0 +1,142 @@
+body {
+    font-family: "Montserrat", "Arial", "Helvetica", sans-serif;
+    background: rgb(255, 255, 255); /* Fondo blanco */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+/* Contenedor principal */
+.Registercontainer {
+    width: 40%; 
+    margin: 80px auto; 
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef); 
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1); 
+}
+
+/* Estilo de la columna principal */
+.Form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+    max-width: 440px; 
+    gap: 15px; 
+    padding: 20px; 
+    background: #ffffff;
+    border-radius: 8px; 
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); 
+}
+
+
+@media (max-width: 768px) {
+    .Registercontainer {
+        width: 90%;
+    }
+
+    .Form {
+        width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    .Form {
+        padding: 15px;
+    }
+}
+
+/* Título del formulario */
+.Form h2 {
+    position: relative;
+    text-align: center;
+    margin-top: 0;
+    margin-bottom: 20px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #333; 
+    text-transform: uppercase;
+}
+
+.Form h2::after {
+    content: "";
+    display: block;
+    width: 50%;
+    height: 2px;
+    background: #333;
+    margin: 10px auto 0 auto;
+}
+
+/* Inputs */
+.Form input {
+    margin-top: 3px;
+    width: 100%;
+    border-radius: 6px;
+    height: 40px;
+    border: 1px solid #ddd;
+    padding: 8px 12px; 
+    background-color: #fff;
+    font-size: 14px;
+    color: #333; 
+    box-sizing: border-box;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.Form input::placeholder {
+    color: #aaa; 
+}
+
+.Form input:focus {
+    border-color: #007bff; 
+    box-shadow: 0 0 5px rgba(0, 123, 255, 0.2); 
+    outline: none;
+}
+
+/* Botón de envío */
+.Form button {
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 7px;
+    height: 40px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.Form button:hover {
+    background-color: rgba(0, 0, 0, 0.8); 
+    transform: scale(1.03);
+}
+
+
+.Form a {
+    font-size: 14px;
+    text-decoration: none;
+    color: black;
+    transition: transform 0.3s ease;
+}
+
+.Form a:hover {
+    color: black;
+    transform: scale(1.03);
+}
+
+
+.Form input + small {
+    display: block;
+    font-size: 12px;
+    color: #777; 
+    margin-top: -5px;
+    margin-bottom: 10px;
+}
+
+
+
+

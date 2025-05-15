@@ -1,0 +1,182 @@
+
+
+.agregar-tarjeta{
+        
+  max-width: 400px; 
+  margin: 20px auto; 
+  background-color: #928e8e10;
+  padding: 15px; 
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 10px; 
+}
+
+.label-cart{
+  font-size: 16px; 
+  color: #333;
+
+}
+.imput-cart{
+  width: 40%;
+  padding: 8px; 
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 13px; }
+.agregar-tarjeta input {
+  width: 100%;
+  padding: 8px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 13px;
+}
+
+.agregar-tarjeta button {
+  width: 100%;
+  padding: 10px; 
+  background-color: #000;
+  color: #fff;
+  font-size: 14px; 
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.agregar-tarjeta button:hover {
+  background-color: #333;
+  transform: scale(1.03); 
+}
+
+@media (max-width: 768px) {
+  .contenedor-tarjeta {
+    max-width: 90%; 
+    gap: 8px;
+  }
+  .imput-cart{
+  width: 75%;
+}
+  .agregar-tarjeta input {
+    padding: 6px;
+    font-size: 12px;
+  }
+
+  .agregar-tarjeta button {
+    padding: 8px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .agregar-tarjeta {
+    padding: 8px;
+    gap: 5px;
+  }
+
+  .agregar-tarjeta input {
+    font-size: 11px;
+  }
+
+  .agregar-tarjeta button {
+    padding: 6px;
+    font-size: 12px;
+  }
+  .imput-cart{
+  width: 75%;
+}
+}
+
+
+
+
+/* Tarjeta ya registrada */
+
+
+.tarjeta {
+  max-width: 400px; 
+  margin: 20px auto; 
+  background-color: #f9f9f9;
+  padding: 15px; 
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  display: flex;
+  flex-direction: column;
+  gap: 13px; 
+}
+
+.tarjeta p {
+  font-size: 17px; 
+  font-family: cursive;
+  color: #333;
+}
+
+
+.tarjeta button {
+    margin-top: 20px;
+  width: 100%;
+  padding: 10px; 
+  background-color: #000;
+  color: #fff;
+  font-size: 14px; 
+  font-weight: bold;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, transform 0.3s ease;
+}
+
+.tarjeta button:hover {
+  background-color: #333;
+  transform: scale(1.03); 
+}
+
+@media (max-width: 768px) {
+  .tarjeta {
+    max-width: 90%; 
+    gap: 8px;
+  }
+  .imput-cart{
+  width: 75%;
+}
+
+  .tarjeta button {
+    padding: 8px;
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 480px) {
+  .tarjeta {
+    padding: 8px;
+    gap: 5px;
+  }
+
+  .tarjeta button {
+    padding: 6px;
+    font-size: 12px;
+  }
+  .imput-cart{
+  width: 75%;
+}
+}
+.titulo-tarjeta{
+display: flex;
+    gap: 12px;
+
+    justify-content: center;
+}
+h2{
+    font-family: cursive;
+}
+.crecer:hover{
+transform: scale(1.23);
+
+}
+.agregar-tarjeta label{
+
+font-size: 15px;
+font-weight: 600;
+font-family: cursive;
+}

@@ -1,0 +1,123 @@
+body {
+    font-family: "Montserrat", "Arial", "Helvetica", sans-serif;
+    background: #f7f7f7;
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.SellProductContainer {
+    animation: fadeInUp 0.8s ease-in-out;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 10px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    width: 90%;
+    max-width: 600px;
+    margin: 100px auto;
+    padding: 30px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 20px;
+}
+
+.SellProductTitle {
+    display: flex;
+    gap: 7px;
+    font-size: 22px;
+    font-weight: bold;
+    color: #333;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 0;
+}
+
+.SellProductInput {
+    width: 100%;
+    border-radius: 6px;
+    height: 40px;
+    border: 1px solid #ddd;
+    padding: 8px 12px;
+    background-color: #fff;
+    font-size: 14px;
+    color: #333;
+    transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.SellProductButton {
+    display: flex;
+gap: 7px;
+padding: 0 10px;
+align-items: center;
+    background-color: black;
+    color: white;
+    text-align: center;
+    border-radius: 7px;
+    height: 45px;
+    width: 100%;
+    font-weight: bold;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+.SellProductButton:hover{
+
+  transform: scale(1.05);
+
+}
+
+
+
+@media (max-width: 768px) {
+    .SellProductContainer {
+        width: 95%;
+        padding: 20px;
+    }
+
+    .SellProductTitle {
+        font-size: 20px;
+    }
+
+    .SellProductInput {
+        font-size: 14px;
+        height: 38px;
+    }
+
+    .SellProductButton {
+        font-size: 15px;
+    }
+}
+
+@media (max-width: 480px) {
+    .SellProductContainer {
+        width: 100%;
+        margin: 50px auto;
+        padding: 15px;
+    }
+
+    .SellProductTitle {
+        font-size: 18px;
+    }
+
+    .SellProductInput {
+        font-size: 13px;
+        height: 36px;
+    }
+
+    .SellProductButton {
+        font-size: 14px;
+        height: 40px;
+    }
+}
