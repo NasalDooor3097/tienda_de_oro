@@ -86,11 +86,11 @@ app.post("/EliminarUsuario", (req, res) => {
 
 // Ruta para crear un nuevo producto
 app.post("/CreateProduct", upload.single('photo'), (req, res) => {
-    const { titulo, new_price, old_price, id_user, tipo } = req.body;
+    const { titulo, new_price, old_price, id_user, tipo, talla, descripcion } = req.body;
     const img1 = req.file ? `uploads/${req.file.filename}` : null;
     if (img1) {
-        const consulta = `INSERT INTO productos (titulo, new_price, old_price, img1, id_user, tipo) VALUES (?, ?, ?, ?, ?, ?)`;
-        pool.query(consulta, [titulo, new_price, old_price, img1, id_user, tipo], (err, results) => {
+        const consulta = `INSERT INTO productos (titulo, new_price, old_price, img1, id_user, tipo, descripcion, talla) VALUES (?, ?, ?, ?, ?, ?, ?, ?)`;
+        pool.query(consulta, [titulo, new_price, old_price, img1, id_user, tipo, descripcion, talla], (err, results) => {
             if (err) {
                 console.error("Error al crear producto:", err);
                 res.status(500).send('Error al crear producto');
@@ -501,13 +501,13 @@ app.post("/SearchAllOrders", (req, res) => {
 
 // Ruta para buscar todos los pedidos para terminarlos
 app.post("/SearchAllOrdersAdministrado", (req, res) => {
-    console.log("Entrando a la ruta de búsqueda de pedidos 0000000000000000000000000000000000000000000000000000000000000");
     const consulta = `SELECT * FROM pedidos WHERE status = 1`;
     pool.query(consulta, (err, results) => {
         if (err) {
             console.error("Error al buscar todos los pedidos:", err);
             res.status(500).send("Error al buscar todos los pedidos");
         } else {
+            console.log(results)
             if (results.length > 0) {
                 res.send(results);
             } else {
@@ -674,6 +674,8 @@ app.post("/SearchOrderCompleted", (req, res) => {
     const { id_user } = req.body;
     const consultaPedidos = `SELECT id_producto, cantidad, id_direccion FROM pedidos WHERE id_user = ? AND status = 2`;
 
+    console.log("Si entraaaaaaaaaaaaaaaaaaaaa id: ", id_user)
+    
     pool.query(consultaPedidos, [id_user], (errPedidos, resultsPedidos) => {
         if (errPedidos) {
             console.error("Error al buscar pedidos:", errPedidos);
@@ -1065,6 +1067,59 @@ app.post('/process-payment-intent', async (req, res) => {
         res.json({ success: false, error: error.message });
     }
 });
+
+
+app.post("/enviarmensaje", (req, res) => {
+
+    console.log("Entrando a la ruta enviarmensaje");
+    const { nombre, email, telefono, mensaje } = req.body;
+
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: "goldenexpressexpressexpresa@gmail.com",
+            pass: "lqsr zspt crpk xrbu" 
+        },
+    });
+
+    const mailOptions = {
+        from: "goldenexpressexpressexpresa@gmail.com",
+        to: email,
+        subject: "Mensaje de usuario llamado: " + nombre,
+        text: mensaje + " El telefono es: " + telefono,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error("Error al enviar el correo:", error);
+            return res.status(500).send("Error al enviar el correo.");
+        }
+
+        console.log("Correo enviado:", info.response);
+        res.status(200).send("Pedido actualizado y correo enviado correctamente.");
+    });
+});
+
+
+
+
+app.post("/Vendedor", (req, res) => {
+    console.log("Entrando a la ruta venderaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa");
+    const { id_user, account_number} = req.body;
+    const consulta = `UPDATE usuarios SET cuenta_bancaria = ?, tipo = 'vendedor' WHERE id = ?`;
+    
+    pool.query(consulta, [account_number, id_user], (error, resultado) => {
+        if (error) {
+            res.status(500).json({ error: "Error al actualizar la información" });
+        } else {
+            res.status(200).json({ mensaje: "Cuenta bancaria actualizada y usuario cambiado a vendedor" });
+        }
+    });
+});
+
+
+
+
 
 
 

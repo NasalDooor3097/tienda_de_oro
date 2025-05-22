@@ -1,6 +1,6 @@
 import React, { useContext, useState } from "react";
 import "./PorductDisplay.css";
-import { ShopContext } from "../../context/ShopContext";  
+import { ShopContext } from "../../context/ShopContext";
 import star_icon from "../assets/star_icon.png";
 import star_dull_icon from "../assets/star_dull_icon.png";
 import { FormContext } from "../../context/FormContext";
@@ -17,11 +17,12 @@ const PorductDisplay = (props) => {
     const handleToggle = () => {
         setIsActive(!isActive);
     };
-    
+
     const handleLogout = () => {
         logout();
         navigate("/login");
     };
+    console.log(product)
 
     const isLoggedIn = userlist.length > 0 && userlist.some(user => user.user_name && user.user_name.trim() !== "");
 
@@ -30,7 +31,7 @@ const PorductDisplay = (props) => {
             <div className="productdisplay-left">
                 <div className="productdisplay-img-list"></div>
                 <div className="productdisplay-img">
-                    <img className="productdisplay-main-img" src={`http://localhost:4000/${product.img1}`} alt={product.name} />                    
+                    <img className="productdisplay-main-img" src={`http://localhost:4000/${product.img1}`} alt={product.titulo} />
                 </div>
             </div>
             <div className="productdisplay-right">
@@ -49,7 +50,16 @@ const PorductDisplay = (props) => {
                 </div>
                 <div className="productdisplay-right-description"></div>
                 <div className="product-right-size">
-                    
+                    <h2>Descripción</h2>
+                    {product.descripcion}
+
+                    {/* Conditional rendering for 'Talla' */}
+                    {product.talla && product.talla !== "0" && (
+                        <>
+                            <h2>Talla</h2>
+                            {product.talla}
+                        </>
+                    )}
                 </div>
                 {isLoggedIn ? (
                     <button onClick={() => { addToCart(product.id) }}>Agregar al carrito</button>

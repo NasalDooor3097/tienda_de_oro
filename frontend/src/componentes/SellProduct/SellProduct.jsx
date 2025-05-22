@@ -8,7 +8,7 @@ import React, {
 import "./SellProduct.css";
 import { ShopContext } from "../../context/ShopContext";
 import { FormContext } from "../../context/FormContext";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import {
   AiOutlinePlusCircle,
   AiOutlineCamera,
@@ -18,6 +18,7 @@ import {
   AiOutlineColumnWidth,
 } from "react-icons/ai";
 import Swal from "sweetalert2";
+import Axios from 'axios';
 
 const CATEGORIES = [
   { value: "", label: "Sin categoría" },
@@ -30,7 +31,6 @@ const CATEGORIES = [
   { value: "Otros", label: "📦 Otros" },
 ];
 
-// Categorías que requieren campo de talla
 const CATEGORIES_WITH_SIZE = ["Ropa", "Zapatos", "Accesorios"];
 
 const SellProduct = () => {
@@ -47,22 +47,26 @@ const SellProduct = () => {
   const { userlist } = useContext(FormContext);
   const { addProduct } = useContext(ShopContext);
 
-  // Verificar si la categoría actual requiere talla
+  const currentUser = userlist && userlist.length > 0 ? userlist[0] : null;
+  const isSeller = currentUser ? currentUser.tipo === 'vendedor' : false;
+  const bankAccount = currentUser ? currentUser.cuenta_bancaria : '';
+
   const showSizeField = useMemo(() => {
     return CATEGORIES_WITH_SIZE.includes(formData.tipo);
   }, [formData.tipo]);
 
-  // Validación de formulario
   const isFormValid = useMemo(() => {
+    if (showSizeField && !formData.talla.trim()) {
+      return false;
+    }
     return formData.titulo.trim() && formData.new_price && imgFile;
-  }, [formData.titulo, formData.new_price, imgFile]);
+  }, [formData.titulo, formData.new_price, imgFile, formData.talla, showSizeField]);
 
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
     setFormData((prev) => {
       const newData = { ...prev, [name]: value };
 
-      // Limpiar el campo de talla si se cambia a una categoría que no la requiere
       if (name === "tipo" && !CATEGORIES_WITH_SIZE.includes(value)) {
         newData.talla = "";
       }
@@ -71,19 +75,18 @@ const SellProduct = () => {
     });
   }, []);
 
-  // Limpiar URL de vista previa al desmontar el componente
   useEffect(() => {
     return () => {
       if (imgPreview) URL.revokeObjectURL(imgPreview);
     };
   }, [imgPreview]);
+  const navigate = useNavigate();
 
   const handleImageChange = useCallback(
     (event) => {
       const file = event.target.files[0];
       if (!file) return;
 
-      // Validar tipo de archivo
       if (!file.type.startsWith("image/")) {
         Swal.fire({
           icon: "error",
@@ -104,7 +107,6 @@ const SellProduct = () => {
         return;
       }
 
-      // Limpiar URL anterior si existe
       if (imgPreview) URL.revokeObjectURL(imgPreview);
 
       setImgFile(file);
@@ -114,6 +116,16 @@ const SellProduct = () => {
   );
 
   const handleAddProduct = useCallback(async () => {
+    if (!isSeller) {
+      Swal.fire({
+        icon: 'info',
+        title: '¡Necesitas ser vendedor!',
+        text: 'Para poder agregar productos, primero debes registrarte como vendedor en tu perfil.',
+        confirmButtonColor: '#007bff',
+      });
+      return;
+    }
+
     if (!isFormValid) {
       Swal.fire({
         icon: "warning",
@@ -127,7 +139,6 @@ const SellProduct = () => {
     try {
       setIsSubmitting(true);
 
-      // Mostrar confirmación antes de agregar
       const result = await Swal.fire({
         title: "¿Agregar producto?",
         text: "¿Estás seguro de que deseas agregar este producto (el admin debe aprobar el producto)?",
@@ -144,7 +155,8 @@ const SellProduct = () => {
         return;
       }
 
-      // Crear promesas para cada operación de subida
+      const tallaToSend = showSizeField ? formData.talla : "0";
+
       const uploadPromises = userlist.map((user) => {
         const formDataToSend = new FormData();
         formDataToSend.append("titulo", formData.titulo);
@@ -153,13 +165,12 @@ const SellProduct = () => {
         formDataToSend.append("photo", imgFile);
         formDataToSend.append("id_user", user.id);
         formDataToSend.append("tipo", formData.tipo);
-        formDataToSend.append("talla", formData.talla);
+        formDataToSend.append("talla", tallaToSend);
         formDataToSend.append("descripcion", formData.descripcion);
 
         return addProduct(formDataToSend);
       });
 
-      // Esperar a que todas las promesas se resuelvan
       await Promise.all(uploadPromises);
 
       await Swal.fire({
@@ -169,7 +180,6 @@ const SellProduct = () => {
         confirmButtonColor: "#007bff",
       });
 
-      // Resetear formulario después de una subida exitosa
       setFormData({
         titulo: "",
         new_price: "",
@@ -190,15 +200,14 @@ const SellProduct = () => {
     } finally {
       setIsSubmitting(false);
     }
-  }, [formData, imgFile, userlist, addProduct, isFormValid]);
+  }, [formData, imgFile, userlist, addProduct, isFormValid, showSizeField, isSeller]);
 
-  // Formatear el precio con 2 decimales
   const formattedPrice = useMemo(() => {
     if (!formData.new_price) return "$0.00";
-    return `$${parseFloat(formData.new_price).toFixed(2)}`;
+    const price = parseFloat(formData.new_price);
+    return isNaN(price) ? "$0.00" : `$${price.toFixed(2)}`;
   }, [formData.new_price]);
 
-  // Obtener la etiqueta de la categoría seleccionada
   const selectedCategory = useMemo(() => {
     return (
       CATEGORIES.find((c) => c.value === formData.tipo)?.label ||
@@ -364,9 +373,9 @@ const SellProduct = () => {
       </div>
 
       <button
-        className={`sell-product-button ${!isFormValid ? "disabled" : ""}`}
+        className={`sell-product-button ${!isFormValid || !isSeller ? "disabled" : ""}`}
         onClick={handleAddProduct}
-        disabled={!isFormValid || isSubmitting}
+        disabled={!isFormValid || isSubmitting || !isSeller}
       >
         {isSubmitting ? (
           <>Procesando...</>

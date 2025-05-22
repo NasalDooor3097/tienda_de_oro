@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import "./Administracion.css";
 import Axios from "axios";
 import Swal from "sweetalert2";
@@ -164,7 +164,7 @@ const EliminarPedido = (id) => {
 };
 
 
-const FinalizarPedido = (id_pedido, userEmail) => {
+const FinalizarPedido = (id_pedido) => {
   Swal.fire({
     title: 'Finalizar pedido',
     text: 'Escribe el mensaje que se enviará al usuario:',
@@ -195,7 +195,7 @@ const FinalizarPedido = (id_pedido, userEmail) => {
           confirmButtonText: "Aceptar",
         });
         setPedidos((prevPedidos) =>
-          prevPedidos.filter((pedido) => pedido.id !== id)
+          prevPedidos.filter((pedido) => pedido.id !== id_pedido)
         );
         Navigate("/perfil");
       })

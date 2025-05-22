@@ -3,7 +3,7 @@ import "./PagPerfil.css";
 import { FormContext } from "../../context/FormContext";
 import Axios from "axios";
 import Item from "../Item/Item";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { AiFillShopping } from "react-icons/ai";
 import { PaymentIcon } from "react-svg-credit-card-payment-icons";
 import {
@@ -19,7 +19,7 @@ import {
 import Swal from "sweetalert2";
 
 const PagPerfil = () => {
-  const { userlist } = useContext(FormContext);
+  const { userlist, logout } = useContext(FormContext);
   const [nombre, setNombre] = useState("");
   const [correo, setCorreo] = useState("");
   const [id_user, setIdUser] = useState("");
@@ -27,11 +27,12 @@ const PagPerfil = () => {
   const [pedidos, setPedidos] = useState([]);
   const [todosLosPedidos, setTodosLosPedidos] = useState([]);
   const [isAdmin, setIsAdmin] = useState(false);
+  const [isVendedor, setIsVendedor] = useState(false); // Nuevo estado para vendedor
   const [activeSection, setActiveSection] = useState("perfil");
   const [pedidosCompletos, setPedidosCompletos] = useState([]);
   const [pedidosDelVendedor, setPedidosDelVendedor] = useState([]);
   const [loading, setLoading] = useState(false);
-
+  const navigate = useNavigate();
   // Estados para controlar qué datos se han cargado
   const [datosInicalesCargados, setDatosInicalesCargados] = useState(false);
   const [pedidosPendientesCargados, setPedidosPendientesCargados] =
@@ -39,13 +40,16 @@ const PagPerfil = () => {
   const [pedidosCompletosCargados, setPedidosCompletosCargados] =
     useState(false);
 
-  // Verificar si el usuario es administrador
+  // Verificar si el usuario es administrador y vendedor
   useEffect(() => {
     if (userlist.length > 0) {
       const user = userlist[0];
       setNombre(user.user_name);
       setCorreo(user.email);
       setIdUser(user.id);
+      
+      // Verificar si es vendedor basándose en el campo tipo
+      setIsVendedor(user.tipo === "vendedor");
 
       Axios.post("http://localhost:4000/SearchAdmin", {
         nombre: user.user_name,
@@ -76,40 +80,42 @@ const PagPerfil = () => {
     try {
       setLoading(true);
 
-      // Cargar productos del usuario
-      const productosResponse = await Axios.post(
-        "http://localhost:4000/SearchProduct",
-        {
-          id_user: id_user,
-        }
-      );
-      setProductos(
-        Array.isArray(productosResponse.data) ? productosResponse.data : []
-      );
+      // Solo cargar productos si es vendedor
+      if (isVendedor) {
+        const productosResponse = await Axios.post(
+          "http://localhost:4000/SearchProduct",
+          {
+            id_user: id_user,
+          }
+        );
+        setProductos(
+          Array.isArray(productosResponse.data) ? productosResponse.data : []
+        );
 
-      // Cargar pedidos realizados al usuario
-      const pedidosResponse = await Axios.post(
-        "http://localhost:4000/GetPedidosByVendedor",
-        {
-          id_user: id_user,
-        }
-      );
-      setPedidos(
-        Array.isArray(pedidosResponse.data) ? pedidosResponse.data : []
-      );
+        // Cargar pedidos realizados al usuario (solo vendedores)
+        const pedidosResponse = await Axios.post(
+          "http://localhost:4000/GetPedidosByVendedor",
+          {
+            id_user: id_user,
+          }
+        );
+        setPedidos(
+          Array.isArray(pedidosResponse.data) ? pedidosResponse.data : []
+        );
 
-      // Cargar pedidos del vendedor
-      const pedidosVendedorResponse = await Axios.post(
-        "http://localhost:4000/PedidosDelVendedor",
-        {
-          id_user: id_user,
-        }
-      );
-      setPedidosDelVendedor(
-        Array.isArray(pedidosVendedorResponse.data)
-          ? pedidosVendedorResponse.data
-          : []
-      );
+        // Cargar pedidos del vendedor
+        const pedidosVendedorResponse = await Axios.post(
+          "http://localhost:4000/PedidosDelVendedor",
+          {
+            id_user: id_user,
+          }
+        );
+        setPedidosDelVendedor(
+          Array.isArray(pedidosVendedorResponse.data)
+            ? pedidosVendedorResponse.data
+            : []
+        );
+      }
 
       setDatosInicalesCargados(true);
     } catch (error) {
@@ -203,8 +209,13 @@ const PagPerfil = () => {
     }
   };
 
-  // Función para eliminar un producto
+  // Función para eliminar un producto (solo vendedores)
   const EliminarProducto = (id) => {
+    if (!isVendedor) {
+      Swal.fire("Error", "Solo los vendedores pueden eliminar productos.", "error");
+      return;
+    }
+
     Swal.fire({
       title: "¿Estás seguro?",
       text: "No podrás deshacer esta acción",
@@ -275,8 +286,13 @@ const PagPerfil = () => {
     });
   };
 
-  // Función para marcar pedido como enviado
+  // Función para marcar pedido como enviado (solo vendedores)
   const enviado = (id_pedido) => {
+    if (!isVendedor) {
+      Swal.fire("Error", "Solo los vendedores pueden marcar pedidos como enviados.", "error");
+      return;
+    }
+
     Swal.fire({
       title: "¿Estás seguro?",
       text: "No podrás deshacer esta acción",
@@ -310,6 +326,57 @@ const PagPerfil = () => {
             );
             console.error("Error:", error);
           });
+      }
+    });
+  };
+
+  // Función para convertirse en vendedor (solo si no es vendedor)
+  const convertToSeller = () => {
+    if (isVendedor) {
+      Swal.fire("Información", "Ya eres un vendedor registrado.", "info");
+      return;
+    }
+
+    Swal.fire({
+      title: '¡Conviértete en Vendedor!',
+      html:
+        '<p>Para empezar a vender, necesitamos tu información bancaria.</p>' +
+        '<input id="swal-input1" class="swal2-input" placeholder="Número de cuenta bancaria">',
+      focusConfirm: false,
+      showCancelButton: true,
+      confirmButtonText: 'Enviar',
+      cancelButtonText: 'Cancelar',
+      preConfirm: () => {
+        const accountNumber = Swal.getPopup().querySelector('#swal-input1').value;
+        if (!accountNumber) {
+          Swal.showValidationMessage('Por favor, ingresa tu número de cuenta bancaria.');
+        }
+        return { accountNumber: accountNumber };
+      }
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const { accountNumber } = result.value;
+        Axios.post("http://localhost:4000/Vendedor", {
+          id_user: id_user,
+          account_number: accountNumber
+        })
+        .then(() => {
+          Swal.fire(
+            '¡Felicidades!',
+            'Ahora eres un vendedor. Tu información bancaria ha sido guardada.',
+            'success'
+          );
+          logout();
+          navigate("/login");
+        })
+        .catch((error) => {
+          Swal.fire(
+            'Error',
+            'No se pudo procesar tu solicitud para convertirte en vendedor. Inténtalo de nuevo más tarde.',
+            'error'
+          );
+          console.error("Error al convertir a vendedor:", error);
+        });
       }
     });
   };
@@ -362,12 +429,47 @@ const PagPerfil = () => {
                   </span>
                   <span className="info-value">{id_user}</span>
                 </div>
+                <div className="info-item">
+                  <span className="info-label">
+                    <FaHandSparkles /> Tipo de cuenta:
+                  </span>
+                  <span className="info-value">
+                    {isVendedor ? "Vendedor" : "Usuario"}
+                  </span>
+                </div>
+
+                {/* Solo mostrar el botón si NO es vendedor */}
+                {!isVendedor && (
+                  <button onClick={convertToSeller}>
+                    Convertirme en vendedor
+                  </button>
+                )}
+
+                {/* Mostrar mensaje si ya es vendedor */}
+                {isVendedor && (
+                  <div className="vendedor-badge">
+                    <p>✅ Cuenta de vendedor activa</p>
+                  </div>
+                )}
               </div>
             </div>
           </div>
         );
 
       case "productos":
+        // Solo vendedores pueden ver productos
+        if (!isVendedor) {
+          return (
+            <div className="profile-content-wrapper">
+              <div className="access-denied">
+                <h2>Acceso Denegado</h2>
+                <p>Solo los vendedores pueden gestionar productos.</p>
+                <p>Conviértete en vendedor desde tu perfil para acceder a esta sección.</p>
+              </div>
+            </div>
+          );
+        }
+
         return (
           <div className="profile-content-wrapper">
             <h2 className="section-title">
@@ -588,6 +690,19 @@ const PagPerfil = () => {
         );
 
       case "todos-pedidos":
+        // Solo vendedores pueden ver pedidos por enviar
+        if (!isVendedor) {
+          return (
+            <div className="profile-content-wrapper">
+              <div className="access-denied">
+                <h2>Acceso Denegado</h2>
+                <p>Solo los vendedores pueden ver pedidos por enviar.</p>
+                <p>Conviértete en vendedor desde tu perfil para acceder a esta sección.</p>
+              </div>
+            </div>
+          );
+        }
+
         return (
           <div className="profile-content-wrapper">
             <h2 className="section-title">
@@ -722,14 +837,17 @@ const PagPerfil = () => {
 
         {!isAdmin && (
           <>
-            <button
-              className={`sidebar-btn ${
-                activeSection === "productos" ? "active" : ""
-              }`}
-              onClick={() => handleSectionChange("productos")}
-            >
-              <FaBox /> Mis Productos
-            </button>
+            {/* Solo mostrar sección de productos si es vendedor */}
+            {isVendedor && (
+              <button
+                className={`sidebar-btn ${
+                  activeSection === "productos" ? "active" : ""
+                }`}
+                onClick={() => handleSectionChange("productos")}
+              >
+                <FaBox /> Mis Productos
+              </button>
+            )}
 
             <button
               className={`sidebar-btn ${
@@ -749,14 +867,17 @@ const PagPerfil = () => {
               <FaHistory /> Pedidos completados
             </button>
 
-            <button
-              className={`sidebar-btn ${
-                activeSection === "todos-pedidos" ? "active" : ""
-              }`}
-              onClick={() => handleSectionChange("todos-pedidos")}
-            >
-              <FaBoxOpen /> Pedidos por enviar
-            </button>
+            {/* Solo mostrar sección de pedidos por enviar si es vendedor */}
+            {isVendedor && (
+              <button
+                className={`sidebar-btn ${
+                  activeSection === "todos-pedidos" ? "active" : ""
+                }`}
+                onClick={() => handleSectionChange("todos-pedidos")}
+              >
+                <FaBoxOpen /> Pedidos por enviar
+              </button>
+            )}
 
             <button
               className={`sidebar-btn ${
