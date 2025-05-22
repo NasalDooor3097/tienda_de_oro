@@ -1,51 +1,66 @@
 import React, { useState } from "react";
 import "./Contacto.css";
-import {
-  AiOutlineMail,
-  AiOutlinePhone,
-  AiOutlineEnvironment,
-} from "react-icons/ai";
+import { AiOutlineMail, AiOutlinePhone, AiOutlineEnvironment } from "react-icons/ai";
 import { BsCheckCircle } from "react-icons/bs";
+import Axios from "axios";
 
 const Contacto = () => {
-  const [formData, setFormData] = useState({
-    nombre: "",
-    email: "",
-    telefono: "",
-    mensaje: "",
-  });
-
+  // Variables de estado individuales
+  const [nombre, setNombre] = useState("");
+  const [email, setEmail] = useState("");
+  const [telefono, setTelefono] = useState("");
+  const [mensaje, setMensaje] = useState("");
   const [submitStatus, setSubmitStatus] = useState(null);
 
-  const handleChange = (e) => {
-    const { name, value } = e.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
+  // Manejo de cambios
+  const handleChangeNombre = (e) => setNombre(e.target.value);
+  const handleChangeEmail = (e) => setEmail(e.target.value);
+  const handleChangeTelefono = (e) => setTelefono(e.target.value);
+  const handleChangeMensaje = (e) => setMensaje(e.target.value);
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Aquí iría la lógica para enviar el formulario (API, email, etc.)
-    console.log("Datos enviados:", formData);
+    console.log("Datos enviados:", { nombre, email, telefono, mensaje });
     setSubmitStatus("success");
+
     setTimeout(() => setSubmitStatus(null), 5000);
-    setFormData({
-      nombre: "",
-      email: "",
-      telefono: "",
-      mensaje: "",
-    });
+
+    // Resetear los valores
+    setNombre("");
+    setEmail("");
+    setTelefono("");
+    setMensaje("");
   };
+
+
+
+
+  const enviarmensaje = () => {
+
+    console.log("Si entra a la consulta ");
+    Axios.post("http://localhost:4000/enviarmensaje", {
+      nombre: nombre,
+      email: email,
+      telefono: telefono,
+      mensaje: mensaje,
+    })
+      .then((response) => {
+        console.log(response.data);
+        setSubmitStatus("success");
+      })
+      .catch((error) => {
+        console.error("Error al enviar el mensaje:", error);
+        setSubmitStatus("error");
+      });
+  }
+
+
 
   return (
     <div className="contacto-container">
       <section className="contacto-hero">
         <h1>Contáctanos</h1>
-        <p>
-          ¿Tienes dudas? Escríbenos y te responderemos en menos de 24 horas.
-        </p>
+        <p>¿Tienes dudas? Escríbenos y te responderemos en menos de 24 horas.</p>
       </section>
 
       <div className="contacto-content">
@@ -53,7 +68,7 @@ const Contacto = () => {
           <div className="info-card">
             <AiOutlineMail className="info-icon" />
             <h3>Correo Electrónico</h3>
-            <p>GoldenXpress@gmail.com</p>
+            <p>goldenexpressexpressexpresa@gmail.com</p>
           </div>
 
           <div className="info-card">
@@ -74,54 +89,27 @@ const Contacto = () => {
 
           <div className="form-group">
             <label htmlFor="nombre">Nombre completo</label>
-            <input
-              type="text"
-              id="nombre"
-              name="nombre"
-              value={formData.nombre}
-              onChange={handleChange}
-              required
-            />
+            <input type="text" id="nombre" name="nombre" value={nombre} onChange={handleChangeNombre} required />
           </div>
 
           <div className="form-group">
             <label htmlFor="email">Correo electrónico</label>
-            <input
-              type="email"
-              id="email"
-              name="email"
-              value={formData.email}
-              onChange={handleChange}
-              required
-            />
+            <input type="email" id="email" name="email" value={email} onChange={handleChangeEmail} required />
           </div>
 
           <div className="form-group">
             <label htmlFor="telefono">Teléfono (opcional)</label>
-            <input
-              type="tel"
-              id="telefono"
-              name="telefono"
-              value={formData.telefono}
-              onChange={handleChange}
-            />
+            <input type="tel" id="telefono" name="telefono" value={telefono} onChange={handleChangeTelefono} />
           </div>
 
           <div className="form-group">
             <label htmlFor="mensaje">Mensaje</label>
-            <textarea
-              id="mensaje"
-              name="mensaje"
-              rows="5"
-              value={formData.mensaje}
-              onChange={handleChange}
-              required
-            ></textarea>
+            <textarea id="mensaje" name="mensaje" rows="5" value={mensaje} onChange={handleChangeMensaje} required />
           </div>
 
-          <button type="submit" className="submit-btn">
-            Enviar Mensaje
-          </button>
+          <button 
+          onClick={() => enviarmensaje()}
+           type="submit" className="submit-btn">Enviar Mensaje</button>
 
           {submitStatus === "success" && (
             <div className="success-message">

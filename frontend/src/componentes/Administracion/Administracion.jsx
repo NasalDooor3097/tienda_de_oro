@@ -37,6 +37,7 @@ const Administracion = () => {
       });
   }, []);
 
+
   useEffect(() => {
     Axios.post("http://localhost:4000/SearchAllOrdersAdministrado", {})
       .then((response) => {
@@ -48,6 +49,8 @@ const Administracion = () => {
         setPedidos([]);
       });
   }, []);
+
+
 
   useEffect(() => {
     Axios.post("http://localhost:4000/SearchAllProductAdmin", {})

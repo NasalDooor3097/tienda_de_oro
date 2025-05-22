@@ -30,8 +30,9 @@ const PagPerfil = () => {
   const [activeSection, setActiveSection] = useState("perfil");
   const [pedidosCompletos, setPedidosCompletos] = useState([]);
   const [pedidosDelVendedor, setPedidosDelVendedor] = useState([]);
+  const [loading, setLoading] = useState(false);
 
-  // Verificar si el usuario es administrador jijij
+  // Verificar si el usuario es administrador
   useEffect(() => {
     if (userlist.length > 0) {
       const user = userlist[0];
@@ -45,27 +46,161 @@ const PagPerfil = () => {
         password: user.password,
       })
         .then((response) => {
-          if (response.data.length > 0) {
-            setIsAdmin(true);
-          } else {
-            setIsAdmin(false);
-          }
+          setIsAdmin(response.data.length > 0);
         })
         .catch((error) => {
           console.error("Error al verificar administrador:", error);
+          setIsAdmin(false);
         });
     }
   }, [userlist]);
 
+  // Cargar datos iniciales cuando el usuario no es admin
+  useEffect(() => {
+    if (userlist.length > 0 && !isAdmin && id_user) {
+      cargarDatosIniciales();
+    }
+  }, [userlist, isAdmin, id_user]);
 
+  // Manejar carga de datos cuando id_user está disponible y hay una sección activa
+  useEffect(() => {
+    if (id_user && id_user !== "") {
+      if (activeSection === "pedidos" && todosLosPedidos.length === 0) {
+        obtenerPedidosPendientes();
+      } else if (
+        activeSection === "pedidosCompletos" &&
+        pedidosCompletos.length === 0
+      ) {
+        obtenerPedidosCompletos();
+      }
+    }
+  }, [id_user, activeSection]);
 
+  // Función para cargar todos los datos iniciales
+  const cargarDatosIniciales = async () => {
+    if (!id_user) return;
 
+    try {
+      setLoading(true);
 
+      // Cargar productos del usuario
+      const productosResponse = await Axios.post(
+        "http://localhost:4000/SearchProduct",
+        {
+          id_user: id_user,
+        }
+      );
+      setProductos(
+        Array.isArray(productosResponse.data) ? productosResponse.data : []
+      );
 
+      // Cargar pedidos realizados al usuario
+      const pedidosResponse = await Axios.post(
+        "http://localhost:4000/GetPedidosByVendedor",
+        {
+          id_user: id_user,
+        }
+      );
+      setPedidos(
+        Array.isArray(pedidosResponse.data) ? pedidosResponse.data : []
+      );
 
+      // Cargar pedidos del vendedor
+      const pedidosVendedorResponse = await Axios.post(
+        "http://localhost:4000/PedidosDelVendedor",
+        {
+          id_user: id_user,
+        }
+      );
+      setPedidosDelVendedor(
+        Array.isArray(pedidosVendedorResponse.data)
+          ? pedidosVendedorResponse.data
+          : []
+      );
+    } catch (error) {
+      console.error("Error al cargar datos iniciales:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  // Función para obtener pedidos pendientes (solo cuando se necesite)
+  const obtenerPedidosPendientes = async () => {
+    // Verificar que id_user tenga un valor válido
+    if (!id_user || id_user === "" || todosLosPedidos.length > 0) {
+      console.log("No se puede obtener pedidos pendientes. id_user:", id_user);
+      return;
+    }
 
+    try {
+      setLoading(true);
+      console.log("Obteniendo pedidos pendientes para usuario:", id_user);
 
+      const response = await Axios.post("http://localhost:4000/SearchOrder", {
+        id_user: id_user,
+      });
+
+      console.log("Respuesta pedidos pendientes:", response.data);
+      setTodosLosPedidos(Array.isArray(response.data) ? response.data : []);
+    } catch (error) {
+      console.error("Error al obtener pedidos pendientes:", error);
+      setTodosLosPedidos([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Función para obtener pedidos completados (solo cuando se necesite)
+  const obtenerPedidosCompletos = async () => {
+    // Verificar que id_user tenga un valor válido
+    if (!id_user || id_user === "" || pedidosCompletos.length > 0) {
+      console.log("No se puede obtener pedidos completados. id_user:", id_user);
+      return;
+    }
+
+    try {
+      setLoading(true);
+      console.log("Obteniendo pedidos completados para usuario:", id_user);
+
+      const response = await Axios.post(
+        "http://localhost:4000/SearchOrderCompleted",
+        {
+          id_user: id_user,
+        }
+      );
+
+      console.log("Respuesta pedidos completados:", response.data);
+      setPedidosCompletos(Array.isArray(response.data) ? response.data : []);
+    } catch (error) {
+      console.error("Error al obtener pedidos completados:", error);
+      setPedidosCompletos([]);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  // Manejar cambio de sección activa
+  const handleSectionChange = (section) => {
+    setActiveSection(section);
+
+    // Solo cargar datos si id_user tiene un valor válido
+    if (!id_user || id_user === "") {
+      console.log("id_user no está disponible aún:", id_user);
+      return;
+    }
+
+    // Cargar datos específicos según la sección
+    if (section === "pedidos" && todosLosPedidos.length === 0) {
+      console.log("Cargando pedidos pendientes...");
+      obtenerPedidosPendientes();
+    } else if (
+      section === "pedidosCompletos" &&
+      pedidosCompletos.length === 0
+    ) {
+      console.log("Cargando pedidos completados...");
+      obtenerPedidosCompletos();
+    }
+  };
 
   // Función para eliminar un producto
   const EliminarProducto = (id) => {
@@ -103,19 +238,6 @@ const PagPerfil = () => {
     });
   };
 
-
-
-
-
-
-
-
-
-
-
-
-
-
   // Función para cancelar un pedido
   const CancelarPedido = (id) => {
     Swal.fire({
@@ -136,9 +258,6 @@ const PagPerfil = () => {
               "El pedido se canceló exitosamente.",
               "success"
             );
-            setPedidos((prevPedidos) =>
-              prevPedidos.filter((pedido) => pedido.id !== id)
-            );
             setTodosLosPedidos((prevPedidos) =>
               prevPedidos.filter((pedido) => pedido.id !== id)
             );
@@ -155,175 +274,55 @@ const PagPerfil = () => {
     });
   };
 
-
-
-
-
-
-
-
-
-
-
-
-  // Función para obtener todos los pedidos pendientes del usuario
-  const ObtenerTodosLosPedidos = (id_user) => {
-    Axios.post("http://localhost:4000/SearchOrder", { id_user: id_user })
-      .then((response) => {
-        if (Array.isArray(response.data)) {
-          setTodosLosPedidos(response.data);
-        } else {
-          console.error("Expected an array but got:", response.data);
-          setTodosLosPedidos([]);
-        }
-      })
-      .catch((error) => {
-        console.error("No se pudieron obtener los pedidos, error: ", error);
-        setTodosLosPedidos([]);
-      });
-  };
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-  useEffect(() => {
-    const obtenerPedidos = async () => {
-      try {
-        const response = await Axios.post("http://localhost:4000/PedidosDelVendedor", { id_user });
-        setPedidosDelVendedor(response.data);
-      } catch (err) {
-        console.error("Error al obtener los pedidos:", err);
-      } 
-    };
-    obtenerPedidos();
-  }, [id_user]);
-
-
-
-
-
-
-
-
-
-
-
-
-    const enviado = (id_pedido) => {
-      Swal.fire({
-        title: "¿Estás seguro?",
-        text: "No podrás deshacer esta acción",
-        icon: "warning",
-        showCancelButton: true,
-        confirmButtonColor: "#3085d6",
-        cancelButtonColor: "#d33",
-        confirmButtonText: "Sí, enviar",
-        cancelButtonText: "Cancelar",
-      }).then((result) => {
-        if (result.isConfirmed) {
-          Axios.post("http://localhost:4000/MarcarPedidoEnviado", { id_pedido: id_pedido })
-            .then(() => {
-              window.location.reload();
-            });
-        }
-      });
-    }
-
-
-
-
-
-
-
-
-
-
-  // Función para obtener todos los pedidos completados del usuario
-  const ObtenerTodosLosPedidosCompletos = (id_user) => {
-    Axios.post("http://localhost:4000/SearchOrderCompleted", { id_user: id_user })
-      .then((response) => {
-        if (Array.isArray(response.data)) {
-          setPedidosCompletos(response.data);
-        } else {
-          console.error("Expected an array but got:", response.data);
-          setPedidosCompletos([]);
-        }
-      })
-      .catch((error) => {
-        console.error("No se pudieron obtener los pedidos, error: ", error);
-        setPedidosCompletos([]);
-      });
-  };
-
-  
-
-
-
-  useEffect(() => {
-    if (userlist.length > 0 && !isAdmin) {
-      const user = userlist[0];
-      setNombre(user.user_name);
-      setCorreo(user.email);
-      setIdUser(user.id);
-
-      // Obtener los productos del usuario
-      Axios.post("http://localhost:4000/SearchProduct", { id_user: user.id })
-        .then((response) => {
-          if (Array.isArray(response.data)) {
-            setProductos(response.data);
-          } else {
-            console.error("Expected an array but got:", response.data);
-            setProductos([]);
-          }
+  // Función para marcar pedido como enviado
+  const enviado = (id_pedido) => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "No podrás deshacer esta acción",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, enviar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Axios.post("http://localhost:4000/MarcarPedidoEnviado", {
+          id_pedido: id_pedido,
         })
-        .catch((error) => {
-          console.error("No hay productos, error: ", error);
-          setProductos([]);
-        });
-
-
-
-
-      // Obtener los pedidos realizados al usuario
-      Axios.post("http://localhost:4000/GetPedidosByVendedor", {
-        id_user: user.id,
-      })
-        .then((response) => {
-          if (Array.isArray(response.data)) {
-            setPedidos(response.data);
-          } else {
-            console.error("Expected an array but got:", response.data);
-            setPedidos([]);
-          }
-        })
-        .catch((error) => {
-          console.error("No hay pedidos, error: ", error);
-          setPedidos([]);
-        });
-
-      // Obtener todos los pedidos del usuario
-      ObtenerTodosLosPedidos(user.id);
-      ObtenerTodosLosPedidosCompletos(id_user);
-    }
-  }, [userlist, isAdmin]);
-
-
-
- 
+          .then(() => {
+            // Actualizar la lista en lugar de recargar la página
+            setPedidosDelVendedor((prev) =>
+              prev.filter((pedido) => pedido.id !== id_pedido)
+            );
+            Swal.fire(
+              "¡Enviado!",
+              "El pedido se marcó como enviado.",
+              "success"
+            );
+          })
+          .catch((error) => {
+            Swal.fire(
+              "Error",
+              "No se pudo marcar el pedido como enviado.",
+              "error"
+            );
+            console.error("Error:", error);
+          });
+      }
+    });
+  };
 
   // Renderizar el contenido según la sección activa
   const renderContent = () => {
+    if (loading) {
+      return (
+        <div className="loading-container">
+          <p>Cargando...</p>
+        </div>
+      );
+    }
+
     switch (activeSection) {
       case "perfil":
         return (
@@ -366,12 +365,6 @@ const PagPerfil = () => {
             </div>
           </div>
         );
-
-
-
-
-
-
 
       case "productos":
         return (
@@ -423,15 +416,6 @@ const PagPerfil = () => {
           </div>
         );
 
-
-
-
-
-
-
-
-
-
       case "pedidos":
         return (
           <div className="profile-content-wrapper">
@@ -444,7 +428,7 @@ const PagPerfil = () => {
                   <div className="pedido-item" key={pedidoTodo.id}>
                     <div className="pedido-header">
                       <h3>Producto: {pedidoTodo.titulo}</h3>
-                      <p>status: {pedidoTodo.status} </p>
+                      <p>Status: {pedidoTodo.status}</p>
                       <span className="pedido-status">
                         {pedidoTodo.status == 0
                           ? "Pendiente de envío"
@@ -471,18 +455,23 @@ const PagPerfil = () => {
                         <p>
                           <strong>Dirección:</strong>
                         </p>
-                        {pedidoTodo.direccion && typeof pedidoTodo.direccion === "object" ? (
+                        {pedidoTodo.direccion &&
+                        typeof pedidoTodo.direccion === "object" ? (
                           <div className="direccion-detalle">
                             <p>
                               {pedidoTodo.direccion.calle} #
                               {pedidoTodo.direccion.numero_exterior}
                             </p>
                             {pedidoTodo.direccion.numero_departamento && (
-                              <p>Departamento: {pedidoTodo.direccion.numero_departamento}</p>
+                              <p>
+                                Departamento:{" "}
+                                {pedidoTodo.direccion.numero_departamento}
+                              </p>
                             )}
                             <p>{pedidoTodo.direccion.colonia}</p>
                             <p>
-                              {pedidoTodo.direccion.ciudad}, {pedidoTodo.direccion.estado}
+                              {pedidoTodo.direccion.ciudad},{" "}
+                              {pedidoTodo.direccion.estado}
                             </p>
                             <p>C.P. {pedidoTodo.direccion.codigo_postal}</p>
                           </div>
@@ -505,50 +494,78 @@ const PagPerfil = () => {
               <div className="empty-state">
                 <div className="empty-state-content">
                   <FaBoxOpen className="empty-icon" />
-                  <h3>No tienes pedidos recibidos</h3>
-                  <p>Cuando recibas pedidos por tus productos, aparecerán aquí</p>
+                  <h3>No tienes pedidos pendientes</h3>
+                  <p>Cuando tengas pedidos pendientes, aparecerán aquí</p>
                 </div>
               </div>
             )}
           </div>
         );
 
-
-
-
-
-
-
-
       case "pedidosCompletos":
         return (
-          <div>
-            <h2>Pedidos completados</h2>
+          <div className="profile-content-wrapper">
+            <h2 className="section-title">
+              <FaHistory /> Pedidos Completados
+            </h2>
             {pedidosCompletos.length === 0 ? (
-                <p>No hay pedidos disponibles.</p>
+              <div className="empty-state">
+                <div className="empty-state-content">
+                  <FaHistory className="empty-icon" />
+                  <h3>No hay pedidos completados</h3>
+                  <p>Los pedidos completados aparecerán aquí</p>
+                </div>
+              </div>
             ) : (
-                <ul>
-                    {pedidosCompletos.map((pedido) => (
-                        <li key={pedido.id}>
-                            <h3>{pedido.titulo}</h3>
-                            <p>Precio nuevo: ${pedido.new_price}</p>
-                            <p>Precio anterior: ${pedido.old_price}</p>
-                            <p>Cantidad: {pedido.cantidad}</p>
-                            <p>Dirección: {pedido.calle}, {pedido.numero_exterior}, {pedido.vivienda}, {pedido.colonia}, {pedido.ciudad}, {pedido.estado}, {pedido.codigo_postal}</p>
-                            <img src={`http://localhost:4000/${pedido.img1}`} alt={pedido.titulo} width="100" />
-                        </li>
-                    ))}
-                </ul>
+              <div className="pedidos-lista">
+                {pedidosCompletos.map((pedido) => (
+                  <div className="pedido-item" key={pedido.id}>
+                    <div className="pedido-header">
+                      <h3>{pedido.titulo}</h3>
+                      <span className="pedido-status">Completado</span>
+                    </div>
+                    <div className="pedido-content">
+                      <div className="pedido-image">
+                        <img
+                          src={`http://localhost:4000/${pedido.img1}`}
+                          alt={pedido.titulo}
+                          className="pedido-img"
+                        />
+                      </div>
+                      <div className="pedido-details">
+                        <p>
+                          <strong>Precio nuevo:</strong> ${pedido.new_price}
+                        </p>
+                        <p>
+                          <strong>Precio anterior:</strong> ${pedido.old_price}
+                        </p>
+                        <p>
+                          <strong>Cantidad:</strong> {pedido.cantidad}
+                        </p>
+                        <p>
+                          <strong>Dirección:</strong>
+                        </p>
+                        <div className="direccion-detalle">
+                          <p>
+                            {pedido.calle} #{pedido.numero_exterior}
+                          </p>
+                          {pedido.vivienda && (
+                            <p>Vivienda: {pedido.vivienda}</p>
+                          )}
+                          <p>{pedido.colonia}</p>
+                          <p>
+                            {pedido.ciudad}, {pedido.estado}
+                          </p>
+                          <p>C.P. {pedido.codigo_postal}</p>
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                ))}
+              </div>
             )}
-
-
           </div>
         );
-
-
-
-
-
 
       case "todos-pedidos":
         return (
@@ -557,7 +574,8 @@ const PagPerfil = () => {
               <FaHistory /> Pedidos por Enviar
             </h2>
 
-            {Array.isArray(pedidosDelVendedor) && pedidosDelVendedor.length > 0 ? (
+            {Array.isArray(pedidosDelVendedor) &&
+            pedidosDelVendedor.length > 0 ? (
               <div className="pedidos-lista">
                 {pedidosDelVendedor.map((pedido) => (
                   <div className="pedido-item" key={pedido.id}>
@@ -574,17 +592,29 @@ const PagPerfil = () => {
                         />
                       </div>
                       <div className="pedido-details">
-                        <p><strong>Precio nuevo:</strong> ${pedido.new_price}</p>
-                        <p><strong>Precio anterior:</strong> ${pedido.old_price}</p>
-                        <p><strong>Cantidad:</strong> {pedido.cantidad}</p>
-                        <p><strong>Dirección:</strong></p>
+                        <p>
+                          <strong>Precio nuevo:</strong> ${pedido.new_price}
+                        </p>
+                        <p>
+                          <strong>Precio anterior:</strong> ${pedido.old_price}
+                        </p>
+                        <p>
+                          <strong>Cantidad:</strong> {pedido.cantidad}
+                        </p>
+                        <p>
+                          <strong>Dirección:</strong>
+                        </p>
                         <div className="direccion-detalle">
-                          <p>{pedido.calle} #{pedido.numero_exterior}</p>
+                          <p>
+                            {pedido.calle} #{pedido.numero_exterior}
+                          </p>
                           {pedido.numero_departamento && (
                             <p>Departamento: {pedido.numero_departamento}</p>
                           )}
                           <p>{pedido.colonia}</p>
-                          <p>{pedido.ciudad}, {pedido.estado}</p>
+                          <p>
+                            {pedido.ciudad}, {pedido.estado}
+                          </p>
                           <p>C.P. {pedido.codigo_postal}</p>
                         </div>
                       </div>
@@ -610,12 +640,6 @@ const PagPerfil = () => {
             )}
           </div>
         );
-
-
-
-
-
-
 
       case "configuracion":
         return (
@@ -653,10 +677,6 @@ const PagPerfil = () => {
     }
   };
 
-
-
-
-
   return (
     <div className="profile-container">
       <div className="profile-sidebar">
@@ -665,8 +685,10 @@ const PagPerfil = () => {
         </div>
 
         <button
-          className={`sidebar-btn ${activeSection === "perfil" ? "active" : ""}`}
-          onClick={() => setActiveSection("perfil")}
+          className={`sidebar-btn ${
+            activeSection === "perfil" ? "active" : ""
+          }`}
+          onClick={() => handleSectionChange("perfil")}
         >
           <FaUser /> Perfil
         </button>
@@ -674,36 +696,46 @@ const PagPerfil = () => {
         {!isAdmin && (
           <>
             <button
-              className={`sidebar-btn ${activeSection === "productos" ? "active" : ""}`}
-              onClick={() => setActiveSection("productos")}
+              className={`sidebar-btn ${
+                activeSection === "productos" ? "active" : ""
+              }`}
+              onClick={() => handleSectionChange("productos")}
             >
               <FaBox /> Mis Productos
             </button>
 
             <button
-              className={`sidebar-btn ${activeSection === "pedidos" ? "active" : ""}`}
-              onClick={() => setActiveSection("pedidos")}
+              className={`sidebar-btn ${
+                activeSection === "pedidos" ? "active" : ""
+              }`}
+              onClick={() => handleSectionChange("pedidos")}
             >
               <FaBoxOpen /> Pedidos pendientes
             </button>
 
             <button
-              className={`sidebar-btn ${activeSection === "pedidosCompletos" ? "active" : ""}`}
-              onClick={() => setActiveSection("pedidosCompletos")}
+              className={`sidebar-btn ${
+                activeSection === "pedidosCompletos" ? "active" : ""
+              }`}
+              onClick={() => handleSectionChange("pedidosCompletos")}
             >
               <FaHistory /> Pedidos completados
             </button>
 
             <button
-              className={`sidebar-btn ${activeSection === "todos-pedidos" ? "active" : ""}`}
-              onClick={() => setActiveSection("todos-pedidos")}
+              className={`sidebar-btn ${
+                activeSection === "todos-pedidos" ? "active" : ""
+              }`}
+              onClick={() => handleSectionChange("todos-pedidos")}
             >
               <FaBoxOpen /> Pedidos por enviar
             </button>
 
             <button
-              className={`sidebar-btn ${activeSection === "configuracion" ? "active" : ""}`}
-              onClick={() => setActiveSection("configuracion")}
+              className={`sidebar-btn ${
+                activeSection === "configuracion" ? "active" : ""
+              }`}
+              onClick={() => handleSectionChange("configuracion")}
             >
               <FaCog /> Configuración
             </button>
@@ -715,9 +747,5 @@ const PagPerfil = () => {
     </div>
   );
 };
-
-
-
-
 
 export default PagPerfil;

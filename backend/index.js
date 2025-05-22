@@ -501,13 +501,13 @@ app.post("/SearchAllOrders", (req, res) => {
 
 // Ruta para buscar todos los pedidos para terminarlos
 app.post("/SearchAllOrdersAdministrado", (req, res) => {
-    console.log("Entrando a la ruta de búsqueda de pedidos 0000000000000000000000000000000000000000000000000000000000000");
     const consulta = `SELECT * FROM pedidos WHERE status = 1`;
     pool.query(consulta, (err, results) => {
         if (err) {
             console.error("Error al buscar todos los pedidos:", err);
             res.status(500).send("Error al buscar todos los pedidos");
         } else {
+            console.log(results)
             if (results.length > 0) {
                 res.send(results);
             } else {
@@ -674,6 +674,8 @@ app.post("/SearchOrderCompleted", (req, res) => {
     const { id_user } = req.body;
     const consultaPedidos = `SELECT id_producto, cantidad, id_direccion FROM pedidos WHERE id_user = ? AND status = 2`;
 
+    console.log("Si entraaaaaaaaaaaaaaaaaaaaa id: ", id_user)
+    
     pool.query(consultaPedidos, [id_user], (errPedidos, resultsPedidos) => {
         if (errPedidos) {
             console.error("Error al buscar pedidos:", errPedidos);
@@ -1064,6 +1066,38 @@ app.post('/process-payment-intent', async (req, res) => {
         console.error('Error al crear PaymentIntent:', error);
         res.json({ success: false, error: error.message });
     }
+});
+
+
+app.post("/enviarmensaje", (req, res) => {
+
+    console.log("Entrando a la ruta enviarmensaje");
+    const { nombre, email, telefono, mensaje } = req.body;
+
+    const transporter = nodemailer.createTransport({
+        service: "gmail",
+        auth: {
+            user: "goldenexpressexpressexpresa@gmail.com",
+            pass: "lqsr zspt crpk xrbu" 
+        },
+    });
+
+    const mailOptions = {
+        from: "goldenexpressexpressexpresa@gmail.com",
+        to: email,
+        subject: "Mensaje de usuario llamado: " + nombre,
+        text: mensaje + " El telefono es: " + telefono,
+    };
+
+    transporter.sendMail(mailOptions, (error, info) => {
+        if (error) {
+            console.error("Error al enviar el correo:", error);
+            return res.status(500).send("Error al enviar el correo.");
+        }
+
+        console.log("Correo enviado:", info.response);
+        res.status(200).send("Pedido actualizado y correo enviado correctamente.");
+    });
 });
 
 
