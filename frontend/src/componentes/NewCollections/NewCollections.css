@@ -1,0 +1,166 @@
+/* Estilos generales del contenedor */
+.tecnologia-container {
+    padding: 40px 20px;
+    background-color: #f5f5f5;
+    background-image: linear-gradient(to bottom, #ffffff 0%, #f5f5f5 100%);
+}
+
+.tecnologia-title {
+    text-align: center;
+    color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tecnologia-title:after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background-color: #007bff; /* Azul para tecnología en lugar del dorado de zapatos */
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.tecnologia-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #ddd, transparent);
+    margin: 30px auto;
+    width: 80%;
+}
+
+/* Estilos del carrusel */
+.tecnologia-carousel-wrapper {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.tecnologia-carousel {
+    position: relative;
+}
+
+.tecnologia-carousel-item {
+    padding: 0 15px;
+    transition: all 0.3s ease;
+}
+
+/* Efectos hover para los items */
+.tecnologia-carousel-item:hover {
+    transform: translateY(-8px);
+}
+
+.tecnologia-carousel-item .item-container {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    transition: all 0.3s;
+    position: relative;
+}
+
+.tecnologia-carousel-item:hover .item-container {
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+}
+
+/* Efecto especial para productos de tecnología */
+.tecnologia-carousel-item .item-image-container {
+    background: linear-gradient(to bottom right, #f9f9f9, #eaeaea);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    position: relative;
+}
+
+.tecnologia-carousel-item .item-image-container:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #eee, transparent);
+}
+
+/* Personalización de los controles del carrusel */
+.slick-prev, .slick-next {
+    width: 45px;
+    height: 45px;
+    z-index: 1;
+    background-color: rgba(0,123,255,0.7); /* Color azul para tecnología */
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.slick-prev {
+    left: -55px;
+}
+
+.slick-next {
+    right: -55px;
+}
+
+.slick-prev:hover, .slick-next:hover {
+    background-color: #0056b3; /* Azul más oscuro al hacer hover */
+}
+
+.slick-prev:before, .slick-next:before {
+    color: white;
+    font-size: 20px;
+    opacity: 0.9;
+}
+
+/* Puntos indicadores */
+.slick-dots {
+    bottom: -40px;
+}
+
+.slick-dots li button:before {
+    color: #999;
+    opacity: 0.8;
+    font-size: 10px;
+}
+
+.slick-dots li.slick-active button:before {
+    color: #0056b3; /* Azul para tecnología */
+    opacity: 1;
+    font-size: 12px;
+}
+
+/* Mensaje cuando no hay productos */
+.no-products {
+    text-align: center;
+    color: #777;
+    font-size: 1.2rem;
+    padding: 60px 0;
+    font-style: italic;
+}
+
+/* Efecto de etiqueta "TECH" */
+.tecnologia-carousel-item .item-price-container {
+    position: relative;
+}
+
+.tecnologia-carousel-item .item-price-container:before {
+    content: "TECH";
+    position: absolute;
+    top: -22px;
+    right: 10px;
+    background-color: #007bff;
+    color: white;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-weight: bold;
+}

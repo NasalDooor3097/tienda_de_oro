@@ -1,0 +1,94 @@
+/* Estilos generales */
+.about-us-container {
+    font-family: 'Arial', sans-serif;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 20px;
+    color: #333;
+  }
+  
+  /* Hero Section */
+  .hero-section {
+    background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+    padding: 60px 20px;
+    text-align: center;
+    border-radius: 10px;
+    margin-bottom: 40px;
+  }
+  
+  .hero-section h1 {
+    font-size: 2.5rem;
+    color: #2d3748;
+  }
+  
+  .hero-section p {
+    font-size: 1.2rem;
+    color: #4a5568;
+  }
+  
+  /* Secciones */
+  .section {
+    margin-bottom: 50px;
+  }
+  
+  .section h2 {
+    font-size: 2rem;
+    color: #3182ce;
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  /* Pasos */
+  .steps-container {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 20px;
+  }
+  
+  .step {
+    flex: 1;
+    min-width: 250px;
+    background: #f8f9fa;
+    padding: 20px;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .step h3 {
+    color: #4299e1;
+  }
+  
+  /* Valores */
+  .values-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .values-list li {
+    margin: 10px 0;
+    font-size: 1.1rem;
+  }
+  
+  /* CTA */
+  .cta-section {
+    text-align: center;
+    padding: 40px;
+    background: #ebf8ff;
+    border-radius: 10px;
+  }
+  
+  .cta-button {
+    background: #3182ce;
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    font-size: 1.1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background 0.3s;
+  }
+  
+  .cta-button:hover {
+    background: #2c5282;
+  }

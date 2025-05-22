@@ -1,0 +1,35 @@
+
+.product-carousel-wrapper {
+    position: relative;
+    width: 100%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+  }
+  
+  .product-carousel .slick-track {
+    display: flex;
+    gap: 15px;
+  }
+  
+  .carousel-item {
+    padding: 10px;
+  }
+  
+  .loading-container {
+    text-align: center;
+    padding: 2rem;
+    font-size: 1.2rem;
+    color: #666;
+  }
+  
+  /* Optimizar renderizado */
+  .slick-slide img {
+    will-change: transform;
+  }
+  
+  /* Mejora de rendimiento */
+  .slick-slider {
+    -webkit-transform: translate3d(0, 0, 0);
+    transform: translate3d(0, 0, 0);
+  }

@@ -1,0 +1,228 @@
+/* Variables */
+:root {
+    --primary: #3182ce;
+    --primary-hover: #2c5282;
+    --text: #2d3748;
+    --text-light: #718096;
+    --gray-light: #f7fafc;
+    --white: #ffffff;
+    --gray: #e2e8f0;
+  }
+  
+  /* Estilos generales */
+  .blog-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 1rem;
+    font-family: 'Segoe UI', system-ui, sans-serif;
+  }
+  
+  /* Header */
+  .blog-header {
+    text-align: center;
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+  }
+  
+  .blog-header h1 {
+    font-size: 2.5rem;
+    color: var(--text);
+    margin-bottom: 0.5rem;
+  }
+  
+  .blog-header p {
+    font-size: 1.1rem;
+    color: var(--text-light);
+    margin-bottom: 1.5rem;
+  }
+  
+  .search-bar {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+  
+  .search-bar input {
+    width: 100%;
+    padding: 0.8rem 1rem;
+    border: 1px solid var(--gray);
+    border-radius: 50px;
+    font-size: 1rem;
+    transition: all 0.3s;
+  }
+  
+  .search-bar input:focus {
+    outline: none;
+    border-color: var(--primary);
+    box-shadow: 0 0 0 3px rgba(49, 130, 206, 0.2);
+  }
+  
+  /* Grid de artículos */
+  .blog-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    gap: 2rem;
+    margin: 2rem 0;
+  }
+  
+  .blog-card {
+    background: var(--white);
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+  
+  .blog-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 15px rgba(0, 0, 0, 0.1);
+  }
+  
+  .card-image {
+    height: 200px;
+    overflow: hidden;
+  }
+  
+  .card-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s;
+  }
+  
+  .blog-card:hover .card-image img {
+    transform: scale(1.05);
+  }
+  
+  .card-content {
+    padding: 1.5rem;
+  }
+  
+  .post-meta {
+    display: flex;
+    gap: 1rem;
+    margin-bottom: 0.8rem;
+    font-size: 0.9rem;
+    color: var(--text-light);
+  }
+  
+  .post-meta span {
+    display: flex;
+    align-items: center;
+    gap: 0.3rem;
+  }
+  
+  .card-content h2 {
+    font-size: 1.3rem;
+    margin-bottom: 0.8rem;
+    color: var(--text);
+  }
+  
+  .card-content p {
+    color: var(--text-light);
+    margin-bottom: 1rem;
+    line-height: 1.5;
+  }
+  
+  .post-tags {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    margin-bottom: 1rem;
+    flex-wrap: wrap;
+  }
+  
+  .tag {
+    background: var(--gray-light);
+    color: var(--primary);
+    padding: 0.2rem 0.6rem;
+    border-radius: 50px;
+    font-size: 0.8rem;
+  }
+  
+  .read-more {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    transition: color 0.3s;
+  }
+  
+  .read-more:hover {
+    color: var(--primary-hover);
+  }
+  
+
+  .post-detail {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 1rem;
+  }
+  
+  .back-button {
+    background: none;
+    border: none;
+    color: var(--primary);
+    font-size: 1rem;
+    margin-bottom: 1.5rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .post-header h1 {
+    font-size: 2rem;
+    margin-bottom: 1rem;
+    color: var(--text);
+  }
+  
+  .post-image {
+    height: 400px;
+    margin: 1.5rem 0;
+    border-radius: 8px;
+    overflow: hidden;
+  }
+  
+  .post-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  
+  .post-content {
+    line-height: 1.6;
+    color: var(--text);
+  }
+  
+  .post-content p {
+    margin-bottom: 1.5rem;
+  }
+  
+  @media (max-width: 768px) {
+    .blog-grid {
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    }
+    
+    .post-image {
+      height: 300px;
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .blog-header h1 {
+      font-size: 2rem;
+    }
+    
+    .post-header h1 {
+      font-size: 1.5rem;
+    }
+    
+    .post-image {
+      height: 200px;
+    }
+  }

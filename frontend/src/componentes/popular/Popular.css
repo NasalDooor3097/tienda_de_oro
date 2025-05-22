@@ -1,0 +1,208 @@
+.popular {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-top: 50px;
+    gap: 10px;
+    height: auto;
+    padding: 20px;
+    background-color: #f9f9f9;
+}
+
+.popular h1 {
+    color: #000000;
+    font-size: 36px;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+}
+
+.popular hr {
+    width: 200px;
+    border: 1px solid #000000;
+    margin-bottom: 15px;
+}
+
+/* Estilos para los filtros */
+.popular-filters {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    max-width: 800px;
+    margin-bottom: 25px;
+    gap: 15px;
+}
+
+@media (min-width: 768px) {
+    .popular-filters {
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+    }
+}
+
+.search-container {
+    flex: 1;
+}
+
+.search-input {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #555;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+}
+
+.category-filter {
+    min-width: 200px;
+}
+
+.category-select {
+    width: 100%;
+    padding: 10px 15px;
+    border: 1px solid #ddd;
+    border-radius: 25px;
+    font-size: 14px;
+    background-color: white;
+    cursor: pointer;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 15px center;
+    background-size: 1em;
+}
+
+.category-select:focus {
+    outline: none;
+    border-color: #555;
+}
+
+/* Estilos para la cuadrícula de productos */
+.popular-item {
+    margin-top: 30px;
+    display: grid;
+    /* Mostrar 3 columnas incluso en pantallas pequeñas */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+}
+
+/* Animación para los elementos al cargar */
+.popular-item > * {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s forwards;
+}
+
+/* Retraso escalonado para la animación de cada elemento */
+.popular-item > *:nth-child(1) { animation-delay: 0.1s; }
+.popular-item > *:nth-child(2) { animation-delay: 0.2s; }
+.popular-item > *:nth-child(3) { animation-delay: 0.3s; }
+.popular-item > *:nth-child(4) { animation-delay: 0.4s; }
+.popular-item > *:nth-child(5) { animation-delay: 0.5s; }
+.popular-item > *:nth-child(6) { animation-delay: 0.6s; }
+.popular-item > *:nth-child(n+7) { animation-delay: 0.7s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Mensajes de estado */
+.loading-spinner {
+    margin: 40px 0;
+    text-align: center;
+    font-size: 18px;
+    color: #666;
+}
+
+.no-products {
+    grid-column: 1 / -1;
+    text-align: center;
+    padding: 40px 0;
+    font-size: 18px;
+    color: #666;
+}
+
+.popular-item {
+    margin-top: 30px;
+    display: grid;
+    /* Mostrar 3 columnas incluso en pantallas pequeñas */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+}
+
+/* Animación para los elementos al cargar */
+.popular-item > * {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeInUp 0.6s forwards;
+}
+
+/* Retraso escalonado para la animación de cada elemento */
+.popular-item > *:nth-child(1) { animation-delay: 0.1s; }
+.popular-item > *:nth-child(2) { animation-delay: 0.2s; }
+.popular-item > *:nth-child(3) { animation-delay: 0.3s; }
+.popular-item > *:nth-child(4) { animation-delay: 0.4s; }
+.popular-item > *:nth-child(5) { animation-delay: 0.5s; }
+.popular-item > *:nth-child(6) { animation-delay: 0.6s; }
+.popular-item > *:nth-child(n+7) { animation-delay: 0.7s; }
+
+@keyframes fadeInUp {
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+/* Para pantallas muy pequeñas (móviles pequeños), mostrar 2 columnas */
+@media (max-width: 480px) {
+    .popular-item {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 8px;
+    }
+    
+    .popular h1 {
+        font-size: 28px;
+    }
+}
+
+/* Para tablets y pantallas medianas */
+@media (min-width: 768px) {
+    .popular h1 {
+        font-size: 44px;
+    }
+
+    .popular-item {
+        gap: 15px;
+    }
+}
+
+/* Para pantallas grandes */
+@media (min-width: 992px) {
+    .popular h1 {
+        font-size: 50px;
+    }
+
+    .popular-item {
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+    }
+}
+
+/* Para pantallas extra grandes */
+@media (min-width: 1200px) {
+    .popular-item {
+        max-width: 1200px;
+    }
+}

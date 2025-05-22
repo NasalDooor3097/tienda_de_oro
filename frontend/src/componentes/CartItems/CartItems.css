@@ -1,0 +1,525 @@
+/* Improved CartItems.css */
+
+/* Main container */
+.cartitems {
+  margin: 2rem auto;
+  max-width: 1200px;
+  background-color: #fff;
+  border-radius: 16px;
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+  padding: 2rem;
+  transition: all 0.3s ease;
+}
+
+.cartitems hr {
+  height: 1px;
+  background: #f0f0f0;
+  border: 0;
+  margin: 1rem 0;
+}
+.cart-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.5rem;
+}
+
+.cart-header h2 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+.cart-header h2 svg {
+  color: #4a6cf7;
+}
+
+.cartitems-format-main {
+  display: grid;
+  grid-template-columns: 0.5fr 2fr 1fr 1fr 1fr 0.5fr;
+  align-items: center;
+  gap: 1rem;
+  padding: 0.5rem 0;
+  color: #555;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.cartitems-format {
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #333;
+}
+
+.cartitems-product-icon {
+  height: 80px;
+  width: 80px;
+  object-fit: cover;
+  border-radius: 8px;
+  transition: transform 0.3s ease;
+}
+.cartitems-remove-icon {
+  width: 22px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  opacity: 0.7;
+}
+
+.cartitems-product-icon:hover {
+  transform: scale(1.05);
+}
+
+/* Product title styling */
+.product-title {
+  font-weight: 600;
+  color: #333;
+  transition: color 0.3s ease;
+}
+
+.product-title:hover {
+  color: #4a6cf7;
+}
+
+/* Remove icon */
+.cartitems-remove-icon {
+  width: 22px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+  opacity: 0.7;
+}
+
+.cartitems-remove-icon:hover {
+  transform: scale(1.2);
+  opacity: 1;
+}
+
+/* Quantity control */
+.cartitems-quantity {
+  width: 60px;
+  height: 40px;
+  border: 1px solid #e1e1e1;
+  background: #fff;
+  border-radius: 8px;
+  color: #333;
+  font-weight: 600;
+  text-align: center;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.05);
+  transition: all 0.3s ease;
+}
+
+.cartitems-quantity:hover {
+  border-color: #4a6cf7;
+}
+
+.empty-cart-message {
+  text-align: center;
+  padding: 3rem 0;
+  color: #777;
+}
+
+.empty-cart-message h3 {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  color: #555;
+}
+
+
+.empty-cart-message p {
+  font-size: 1.1rem;
+  margin-bottom: 2rem;
+}
+
+.empty-cart-message svg {
+  font-size: 3rem;
+  color: #4a6cf7;
+  margin-bottom: 1rem;
+}
+
+/* Cart summary section */
+.cartitems-down {
+  display: flex;
+  margin: 3rem 0 1rem;
+}
+
+.cartitems-total {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  background-color: #f9fafc;
+  padding: 1.5rem;
+  border-radius: 12px;
+}
+.cartitems-total h1 {
+  font-size: 1.5rem;
+  color: #333;
+  margin-bottom: 0.5rem;
+  font-weight: 700;
+}
+
+.cartitems-total-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 0.75rem 0;
+  color: #555;
+}
+
+.cartitems-total-item h3 {
+  color: #333;
+  font-weight: 700;
+}
+
+/* Checkout button */
+.checkout-button {
+  width: 100%;
+  height: 50px;
+  border: none;
+  background: #000;
+  color: #fff;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+.checkout-button:hover {
+  background: #333;
+  transform: translateY(-2px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.3);
+}
+
+.checkout-button:active {
+  transform: translateY(0);
+}
+
+.checkout-button-disabled {
+  background: #b0b0b0;
+  cursor: not-allowed;
+  box-shadow: none;
+}
+
+.checkout-button-disabled:hover {
+  background: #b0b0b0;
+  transform: none;
+  box-shadow: none;
+}
+
+/* Shipping address section */
+.shipping-section {
+  margin-top: 1.5rem;
+}
+
+.shipping-section h1 {
+  font-size: 1.2rem;
+  color: #333;
+  margin-bottom: 0.75rem;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.shipping-section h1 svg {
+  color: #000;
+}
+
+/* Address cards grid */
+.grid-direcciones {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+  gap: 0.75rem;
+  margin-top: 0.75rem;
+}
+
+/* Address card */
+.tarjeta-direccion {
+  border: 1px solid #e6e6e6;
+  border-radius: 10px;
+  padding: 1rem;
+  background: #fff;
+  transition: all 0.3s ease;
+}
+
+.tarjeta-direccion:hover {
+  box-shadow: 0 5px 15px rgba(0,0,0,0.08);
+  transform: translateY(-2px);
+}
+
+.tarjeta-direccion.selected {
+  border: 2px solid #000;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.15);
+}
+
+.tarjeta-header {
+  background-color: #f7f9fc;
+  padding: 0.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid #eee;
+}
+
+.badge-vivienda {
+  background-color: #000;
+  color: white;
+  padding: 0.2rem 0.5rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.badge-departamento {
+  background-color: #ffd166;
+  color: #333;
+  padding: 0.2rem 0.5rem;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 500;
+}
+
+.tarjeta-body {
+  padding: 0.75rem;
+}
+
+.tarjeta-body p {
+  margin: 0.3rem 0;
+  font-size: 0.85rem;
+  color: #555;
+}
+
+.etiqueta {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Address actions */
+.address-actions {
+  margin-top: 0.75rem;
+  display: flex;
+  justify-content: center;
+}
+
+.address-button {
+  padding: 0.5rem 1rem;
+  background: #fff;
+  border: 1px solid #000;
+  color: #000;
+  border-radius: 6px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-top: 0.5rem;
+}
+
+.address-button:hover {
+  background: #f2f2f2;
+}
+
+.address-button.selected {
+  background: #000;
+  color: white;
+}
+
+.address-button.locked {
+  background: #f5f5f5;
+  border-color: #ddd;
+  color: #999;
+  cursor: not-allowed;
+}
+
+/* No address warning */
+.sin-direcciones {
+  text-align: center;
+  padding: 2rem;
+  background-color: #fff7e6;
+  border: 1px dashed #ffd166;
+  border-radius: 10px;
+  margin-top: 1rem;
+}
+
+.sin-direcciones p:first-child {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.sin-direcciones p:last-child {
+  color: #666;
+}
+
+/* Add address button */
+.add-address-button {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+  padding: 0.75rem;
+  background: #f9fafc;
+  border: 1px dashed #ccc;
+  border-radius: 10px;
+  color: #555;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.add-address-button:hover {
+  background: #f0f5ff;
+  border-color: #4a6cf7;
+  color: #4a6cf7;
+}
+
+/* Responsive styles */
+@media (max-width: 1024px) {
+  .cartitems {
+    margin: 1.5rem 1rem;
+    padding: 1.5rem;
+  }
+
+  .cartitems-format-main {
+    grid-template-columns: 0.5fr 2fr 1fr 1fr 0.5fr;
+    gap: 0.5rem;
+  }
+
+  /* Hide price column on medium screens */
+  .cartitems-format-main p:nth-child(3),
+  .cartitems-format .price-column {
+    display: none;
+  }
+
+  .grid-direcciones {
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .cartitems {
+    margin: 1rem 0.5rem;
+    padding: 1rem;
+  }
+
+  .cartitems-format-main {
+    grid-template-columns: 0.5fr 2fr 1fr 0.5fr;
+    font-size: 0.9rem;
+  }
+
+  /* Hide total column on smaller screens */
+  .cartitems-format-main p:nth-child(5),
+  .cartitems-format .total-column {
+    display: none;
+  }
+
+  .cartitems-product-icon {
+    height: 60px;
+    width: 60px;
+  }
+
+  .cartitems-down {
+    flex-direction: column;
+    margin: 2rem 0 0;
+  }
+
+  .cartitems-total {
+    gap: 1rem;
+  }
+
+  .grid-direcciones {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 480px) {
+  .cartitems {
+    margin: 0.5rem;
+    padding: 0.75rem;
+  }
+
+  .cart-header h2 {
+    font-size: 1.5rem;
+  }
+
+  .cartitems-format-main {
+    grid-template-columns: 3fr 1fr 0.5fr;
+    gap: 0.25rem;
+  }
+
+  /* Show product image on small screens but inline with product title */
+  .product-row {
+    display: flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+
+  .cartitems-product-icon {
+    height: 50px;
+    width: 50px;
+  }
+
+  /* Hide quantity column header on small screens */
+  .cartitems-format-main p:nth-child(4) {
+    display: none;
+  }
+
+  .cartitems-total h1 {
+    font-size: 1.25rem;
+  }
+
+  .shipping-section h1 {
+    font-size: 1.25rem;
+  }
+}
+/* Estilo para cuando hay pocas direcciones (2 por fila) */
+@media (max-width: 900px) {
+  .tarjeta-direccion {
+    flex: 1 0 calc(50% - 0.75rem);
+    max-width: calc(50% - 0.75rem);
+  }
+}
+
+/* Estilo para móviles (1 por fila) */
+@media (max-width: 600px) {
+  .tarjeta-direccion {
+    flex: 1 0 100%;
+    max-width: 100%;
+  }
+}
+
+/* Versión compacta del contenido de la tarjeta */
+.tarjeta-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.5rem;
+}
+
+.badge-vivienda, .badge-departamento {
+  font-size: 0.7rem;
+  padding: 0.15rem 0.4rem;
+}
+
+.tarjeta-body p {
+  margin: 0.2rem 0;
+  font-size: 0.8rem;
+  line-height: 1.3;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+/* Dirección seleccionada */
+.tarjeta-direccion.selected {
+  border: 2px solid #4a6cf7;
+  background-color: #f5f8ff;
+}
+
+/* Botones más compactos */
+.address-actions {
+  margin-top: 0.5rem;
+}
+
+.address-button {
+  padding: 0.3rem 0.6rem;
+  font-size: 0.75rem;
+}

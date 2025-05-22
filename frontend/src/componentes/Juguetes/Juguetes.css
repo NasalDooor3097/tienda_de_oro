@@ -1,0 +1,204 @@
+/* Estilos generales del contenedor */
+.juguetes-container {
+    padding: 40px 20px;
+    background-color: #f9f9f9;
+    background-image: linear-gradient(135deg, #ffffff 0%, #f5f9fa 100%);
+    position: relative;
+    overflow: hidden;
+}
+
+/* Efecto de ondas sutiles para simular diversión infantil */
+.juguetes-container:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background-image: 
+        radial-gradient(circle at 10% 20%, rgba(87, 198, 235, 0.03) 0%, transparent 50%),
+        radial-gradient(circle at 90% 30%, rgba(255, 187, 0, 0.03) 0%, transparent 40%),
+        radial-gradient(circle at 50% 80%, rgba(76, 217, 100, 0.03) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.juguetes-title {
+    text-align: center;
+    color: #2c5d6d;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+    font-family: 'Playfair Display', serif, sans-serif;
+}
+
+.juguetes-title:after {
+    content: "";
+    position: absolute;
+    width: 70px;
+    height: 3px;
+    background: linear-gradient(to right, #57c6eb, #2ba5e2, #57c6eb);
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.juguetes-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(43, 165, 226, 0.3), transparent);
+    margin: 30px auto;
+    width: 80%;
+    position: relative;
+    z-index: 2;
+}
+
+/* Estilos del carrusel */
+.juguetes-carousel-wrapper {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.juguetes-carousel {
+    position: relative;
+}
+
+.juguete-carousel-item {
+    padding: 0 15px;
+    transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Transición divertida para juguetes */
+}
+
+/* Efectos hover para los items */
+.juguete-carousel-item:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+.juguete-carousel-item .item-container {
+    background: white;
+    border-radius: 12px; /* Bordes más redondeados para tema infantil */
+    overflow: hidden;
+    box-shadow: 0 5px 15px rgba(43, 165, 226, 0.1);
+    transition: all 0.3s;
+    position: relative;
+}
+
+.juguete-carousel-item:hover .item-container {
+    box-shadow: 0 15px 30px rgba(43, 165, 226, 0.15);
+}
+
+/* Efecto especial para productos juguetes */
+.juguete-carousel-item .item-image-container {
+    background: linear-gradient(135deg, #f0faff, #f5fbff);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    position: relative;
+}
+
+.juguete-carousel-item .item-image-container:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(43, 165, 226, 0.2), transparent);
+}
+
+/* Añadir un efecto de brillo para los juguetes */
+.juguete-carousel-item .item-image-container img {
+    filter: drop-shadow(0 5px 10px rgba(43, 165, 226, 0.1));
+    transition: all 0.4s ease;
+}
+
+.juguete-carousel-item:hover .item-image-container img {
+    filter: drop-shadow(0 8px 15px rgba(43, 165, 226, 0.2));
+    transform: scale(1.05) rotate(2deg); /* Efecto juguetón con ligera rotación */
+}
+
+/* Personalización de los controles del carrusel */
+.slick-prev, .slick-next {
+    width: 45px;
+    height: 45px;
+    z-index: 5;
+    background-color: rgba(43, 165, 226, 0.7); /* Color azul brillante para juguetes */
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.slick-prev {
+    left: -55px;
+}
+
+.slick-next {
+    right: -55px;
+}
+
+.slick-prev:hover, .slick-next:hover {
+    background-color: #2ba5e2; /* Azul sólido al hacer hover */
+    box-shadow: 0 0 10px rgba(43, 165, 226, 0.3);
+}
+
+.slick-prev:before, .slick-next:before {
+    color: white;
+    font-size: 20px;
+    opacity: 0.9;
+}
+
+/* Puntos indicadores más grandes y coloridos para tema infantil */
+.slick-dots {
+    bottom: -40px;
+}
+
+.slick-dots li button:before {
+    color: #88c9e6;
+    opacity: 0.5;
+    font-size: 10px;
+}
+
+.slick-dots li.slick-active button:before {
+    color: #2ba5e2; /* Azul para juguetes */
+    opacity: 1;
+    font-size: 12px;
+}
+
+/* Mensaje cuando no hay productos */
+.no-products {
+    text-align: center;
+    color: #777;
+    font-size: 1.2rem;
+    padding: 60px 0;
+    font-style: italic;
+}
+
+/* Efecto de etiqueta "TOYS" */
+.juguete-carousel-item .item-price-container {
+    position: relative;
+}
+
+.juguete-carousel-item .item-price-container:before {
+    content: "TOYS";
+    position: absolute;
+    top: -22px;
+    right: 10px;
+    background: linear-gradient(to right, #57c6eb, #2ba5e2);
+    color: white;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 8px rgba(43, 165, 226, 0.2);
+}

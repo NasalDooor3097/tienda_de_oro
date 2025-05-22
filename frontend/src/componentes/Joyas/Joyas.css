@@ -1,0 +1,199 @@
+/* Estilos generales del contenedor */
+.joyas-container {
+    padding: 40px 20px;
+    background-color: #f8f8f8;
+    background-image: linear-gradient(to bottom, #ffffff 0%, #f8f8f8 100%);
+    position: relative;
+}
+
+/* Efecto sutil de destellos para sección de joyas */
+.joyas-container:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 100%;
+    background-image: radial-gradient(circle at 50% 50%, rgba(255, 215, 0, 0.05) 0%, transparent 60%),
+                     radial-gradient(circle at 20% 30%, rgba(255, 215, 0, 0.05) 0%, transparent 30%),
+                     radial-gradient(circle at 80% 20%, rgba(255, 215, 0, 0.05) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 1;
+}
+
+.joyas-title {
+    text-align: center;
+    color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+    z-index: 2;
+}
+
+.joyas-title:after {
+    content: "";
+    position: absolute;
+    width: 60px;
+    height: 3px;
+    background: linear-gradient(to right, #d4af37, #ffd700, #d4af37); /* Gradiente dorado */
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.joyas-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #d4af37, transparent);
+    margin: 30px auto;
+    width: 80%;
+    position: relative;
+    z-index: 2;
+}
+
+/* Estilos del carrusel */
+.joyas-carousel-wrapper {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 20px;
+    position: relative;
+    z-index: 2;
+}
+
+.joyas-carousel {
+    position: relative;
+}
+
+.joyas-carousel-item {
+    padding: 0 15px;
+    transition: all 0.4s ease;
+}
+
+/* Efectos hover para los items */
+.joyas-carousel-item:hover {
+    transform: translateY(-8px) scale(1.02);
+}
+
+.joyas-carousel-item .item-container {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 15px rgba(212, 175, 55, 0.1);
+    transition: all 0.3s;
+    position: relative;
+}
+
+.joyas-carousel-item:hover .item-container {
+    box-shadow: 0 12px 30px rgba(212, 175, 55, 0.2);
+}
+
+/* Efecto especial para productos de joyas */
+.joyas-carousel-item .item-image-container {
+    background: linear-gradient(to bottom right, #fff9f0, #fffaf0);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    position: relative;
+}
+
+.joyas-carousel-item .item-image-container:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, rgba(212, 175, 55, 0.3), transparent);
+}
+
+/* Añadir un sutil brillo alrededor de las imágenes de joyas */
+.joyas-carousel-item .item-image-container img {
+    filter: drop-shadow(0 0 5px rgba(255, 215, 0, 0.2));
+    transition: all 0.4s ease;
+}
+
+.joyas-carousel-item:hover .item-image-container img {
+    filter: drop-shadow(0 0 8px rgba(255, 215, 0, 0.4));
+}
+
+/* Personalización de los controles del carrusel */
+.slick-prev, .slick-next {
+    width: 45px;
+    height: 45px;
+    z-index: 5;
+    background-color: rgba(212, 175, 55, 0.7); /* Color dorado para joyas */
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.slick-prev {
+    left: -55px;
+}
+
+.slick-next {
+    right: -55px;
+}
+
+.slick-prev:hover, .slick-next:hover {
+    background-color: #d4af37; /* Dorado sólido al hacer hover */
+}
+
+.slick-prev:before, .slick-next:before {
+    color: white;
+    font-size: 20px;
+    opacity: 0.9;
+}
+
+/* Puntos indicadores */
+.slick-dots {
+    bottom: -40px;
+}
+
+.slick-dots li button:before {
+    color: #b48e36;
+    opacity: 0.5;
+    font-size: 10px;
+}
+
+.slick-dots li.slick-active button:before {
+    color: #d4af37; /* Dorado para joyas */
+    opacity: 1;
+    font-size: 12px;
+}
+
+/* Mensaje cuando no hay productos */
+.no-products {
+    text-align: center;
+    color: #777;
+    font-size: 1.2rem;
+    padding: 60px 0;
+    font-style: italic;
+}
+
+/* Efecto de etiqueta "LUXURY" */
+.joyas-carousel-item .item-price-container {
+    position: relative;
+}
+
+.joyas-carousel-item .item-price-container:before {
+    content: "LUXURY";
+    position: absolute;
+    top: -22px;
+    right: 10px;
+    background: linear-gradient(to right, #d4af37, #ffd700);
+    color: white;
+    font-size: 10px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-weight: bold;
+    letter-spacing: 1px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}

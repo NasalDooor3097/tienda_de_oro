@@ -1,0 +1,166 @@
+/* Estilos generales del contenedor */
+.ropa-container {
+    padding: 40px 20px;
+    background-color: #f5f5f5;
+    background-image: linear-gradient(to bottom, #ffffff 0%, #f5f5f5 100%);
+}
+
+.ropa-title {
+    text-align: center;
+    color: #333;
+    font-size: 2.5rem;
+    margin-bottom: 15px;
+    font-weight: 600;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    position: relative;
+    display: inline-block;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ropa-title:after {
+    content: "";
+    position: absolute;
+    width: 50px;
+    height: 3px;
+    background-color: #e83e8c; /* Rosa para ropa */
+    bottom: -10px;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.ropa-divider {
+    border: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #ddd, transparent);
+    margin: 30px auto;
+    width: 80%;
+}
+
+/* Estilos del carrusel */
+.ropa-carousel-wrapper {
+    max-width: 1300px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.ropa-carousel {
+    position: relative;
+}
+
+.ropa-carousel-item {
+    padding: 0 15px;
+    transition: all 0.3s ease;
+}
+
+/* Efectos hover para los items */
+.ropa-carousel-item:hover {
+    transform: translateY(-8px);
+}
+
+.ropa-carousel-item .item-container {
+    background: white;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.08);
+    transition: all 0.3s;
+    position: relative;
+}
+
+.ropa-carousel-item:hover .item-container {
+    box-shadow: 0 15px 30px rgba(0,0,0,0.12);
+}
+
+/* Efecto especial para productos de ropa */
+.ropa-carousel-item .item-image-container {
+    background: linear-gradient(to bottom right, #fff9fb, #ffeff5);
+    padding: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 200px;
+    position: relative;
+}
+
+.ropa-carousel-item .item-image-container:before {
+    content: "";
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 1px;
+    background: linear-gradient(to right, transparent, #eee, transparent);
+}
+
+/* Personalización de los controles del carrusel */
+.slick-prev, .slick-next {
+    width: 45px;
+    height: 45px;
+    z-index: 1;
+    background-color: rgba(232,62,140,0.7); /* Color rosa para ropa */
+    border-radius: 50%;
+    transition: all 0.3s;
+}
+
+.slick-prev {
+    left: -55px;
+}
+
+.slick-next {
+    right: -55px;
+}
+
+.slick-prev:hover, .slick-next:hover {
+    background-color: #d5317c; /* Rosa más oscuro al hacer hover */
+}
+
+.slick-prev:before, .slick-next:before {
+    color: white;
+    font-size: 20px;
+    opacity: 0.9;
+}
+
+/* Puntos indicadores */
+.slick-dots {
+    bottom: -40px;
+}
+
+.slick-dots li button:before {
+    color: #999;
+    opacity: 0.8;
+    font-size: 10px;
+}
+
+.slick-dots li.slick-active button:before {
+    color: #e83e8c; /* Rosa para ropa */
+    opacity: 1;
+    font-size: 12px;
+}
+
+/* Mensaje cuando no hay productos */
+.no-products {
+    text-align: center;
+    color: #777;
+    font-size: 1.2rem;
+    padding: 60px 0;
+    font-style: italic;
+}
+
+/* Efecto de etiqueta "MODA" */
+.ropa-carousel-item .item-price-container {
+    position: relative;
+}
+
+.ropa-carousel-item .item-price-container:before {
+    content: "MODA";
+    position: absolute;
+    top: -22px;
+    right: 10px;
+    background-color: #e83e8c;
+    color: white;
+    font-size: 10px;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-weight: bold;
+}
