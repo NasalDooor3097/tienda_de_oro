@@ -313,7 +313,7 @@ const CartItems = () => {
                     <p>Agrega una dirección para continuar con tu compra</p>
                     <Link to="/profile">
                       <div className="add-address-button">
-                        <FaPlus /> Agregar nueva dirección
+                        <FaPlus /> <Link to={"/direcciones"}>Agregar una direccion</Link>
                       </div>
                     </Link>
                   </div>

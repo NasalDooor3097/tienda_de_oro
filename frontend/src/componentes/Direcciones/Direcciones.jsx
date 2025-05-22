@@ -3,12 +3,13 @@ import "./Direcciones.css";
 import React, { useState, useContext, useEffect } from "react";
 import { FormContext } from "../../context/FormContext";
 import Swal from "sweetalert2";
+import {useNavigate} from "react-router-dom";
 
 const Direcciones = () => {
   const { userlist } = useContext(FormContext);
   const [loading, setLoading] = useState(false);
   const [errors, setErrors] = useState({});
-
+  const Navigate = useNavigate();
   // Verificación segura del usuario
   const user = userlist?.[0] || {};
   const userId = user?.id;
@@ -138,14 +139,41 @@ const Direcciones = () => {
       setDireccionesGuardadas(response.data || []);
     } catch (error) {
       console.error("Error al cargar direcciones:", error);
-      Swal.fire({
-        icon: "error",
-        title: "Error",
-        text: "No hay direcciones guardadas",
-        confirmButtonColor: "#3498db",
-      });
     }
   };
+
+
+
+
+
+  const eliminarDireccion = (id_direccion) => {
+    Swal.fire({
+      title: "¿Estás seguro?",
+      text: "Esta acción no se puede deshacer",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3498db",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Sí, eliminar",
+      cancelButtonText: "Cancelar",
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Axios.post("http://localhost:4000/EliminarDireccion", {
+          id_direccion: id_direccion,
+        })
+          .then(() => {
+            Swal.fire({
+              icon: "success",
+              title: "¡Eliminado!",
+              text: "La dirección ha sido eliminada correctamente",
+              confirmButtonColor: "#3498db",
+            });
+            window.location.reload();
+          })
+      }
+    });
+  }
+
 
   useEffect(() => {
     if (userId) {
@@ -278,6 +306,7 @@ const Direcciones = () => {
                       </span>
                     )}
                   </div>
+                  
                   <div className="tarjeta-body">
                     <p>
                       <span className="etiqueta">Dirección:</span> {dir.calle} #
@@ -294,6 +323,10 @@ const Direcciones = () => {
                       <span className="etiqueta">C.P.:</span>{" "}
                       {dir.codigo_postal}
                     </p>
+                    <button
+                      className="boton-eliminar"
+                      onClick={() => eliminarDireccion(dir.id)}
+                    >Eliminar direccion</button>
                   </div>
                 </div>
               ))}

@@ -49,14 +49,7 @@ const PorductDisplay = (props) => {
                 </div>
                 <div className="productdisplay-right-description"></div>
                 <div className="product-right-size">
-                    <h1>Select Size</h1>
-                    <div className="productdisplay-right-size">
-                        <div>1</div>
-                        <div>2</div>
-                        <div>3</div>
-                        <div>4</div>
-                        <div>5</div>
-                    </div>
+                    
                 </div>
                 {isLoggedIn ? (
                     <button onClick={() => { addToCart(product.id) }}>Agregar al carrito</button>

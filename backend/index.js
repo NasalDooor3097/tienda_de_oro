@@ -52,7 +52,7 @@ const upload = multer({ storage: storage });
 // Ruta para crear un nuevo usuario
 app.post("/create", (req, res) => {
     const { nombre, correo, password } = req.body;
-    const consulta = `INSERT INTO usuarios (user_name, email, password) VALUES (?, ?, ?)`;
+    const consulta = `INSERT INTO usuarios (user_name, email, password, tipo, cuenta_bancaria) VALUES (?, ?, ?, "usuario", "0")`;
     pool.query(consulta, [nombre, correo, password], (err, results) => {
         if (err) {
             console.error("Error al crear usuario:", err);
@@ -1014,6 +1014,36 @@ app.post("/BuscarDirecciones", (req, res) => {
 });
 
 
+
+
+
+// Ruta para eliminar una dirección
+app.post("/EliminarDireccion", (req, res) =>{
+    const {id_direccion} = req.body;
+    const consulta = `DELETE FROM direcciones WHERE id = ?`;
+    pool.query(consulta, [id_direccion], (err, results) => {
+        if (err) {
+            console.error("Error al eliminar dirección:", err);
+            res.status(500).send("Error al eliminar dirección");
+        } else {
+            if (results.affectedRows === 0) {
+                console.log("No se pudo eliminar la dirección");
+                res.send("No se pudo eliminar la dirección");
+            } else {
+                console.log("Dirección eliminada exitosamente");
+                res.send("Dirección eliminada exitosamente");
+            }
+        }
+    });
+})
+
+
+
+
+
+
+
+// Ruta para procesar el pago con Stripe
 app.post('/process-payment-intent', async (req, res) => {
     const { amount, currency, paymentMethodId } = req.body;
 
