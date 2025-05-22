@@ -14,6 +14,8 @@ import {
   AiOutlineCamera,
   AiOutlineTag,
   AiOutlineDollar,
+  AiOutlineFileText,
+  AiOutlineColumnWidth,
 } from "react-icons/ai";
 import Swal from "sweetalert2";
 
@@ -28,11 +30,16 @@ const CATEGORIES = [
   { value: "Otros", label: "📦 Otros" },
 ];
 
+// Categorías que requieren campo de talla
+const CATEGORIES_WITH_SIZE = ["Ropa", "Zapatos", "Accesorios"];
+
 const SellProduct = () => {
   const [formData, setFormData] = useState({
     titulo: "",
     new_price: "",
     tipo: "",
+    talla: "",
+    descripcion: "",
   });
   const [imgFile, setImgFile] = useState(null);
   const [imgPreview, setImgPreview] = useState(null);
@@ -40,14 +47,28 @@ const SellProduct = () => {
   const { userlist } = useContext(FormContext);
   const { addProduct } = useContext(ShopContext);
 
-  // Validación de formulario jijijiijij
+  // Verificar si la categoría actual requiere talla
+  const showSizeField = useMemo(() => {
+    return CATEGORIES_WITH_SIZE.includes(formData.tipo);
+  }, [formData.tipo]);
+
+  // Validación de formulario
   const isFormValid = useMemo(() => {
     return formData.titulo.trim() && formData.new_price && imgFile;
   }, [formData.titulo, formData.new_price, imgFile]);
 
   const handleInputChange = useCallback((e) => {
     const { name, value } = e.target;
-    setFormData((prev) => ({ ...prev, [name]: value }));
+    setFormData((prev) => {
+      const newData = { ...prev, [name]: value };
+
+      // Limpiar el campo de talla si se cambia a una categoría que no la requiere
+      if (name === "tipo" && !CATEGORIES_WITH_SIZE.includes(value)) {
+        newData.talla = "";
+      }
+
+      return newData;
+    });
   }, []);
 
   // Limpiar URL de vista previa al desmontar el componente
@@ -73,7 +94,6 @@ const SellProduct = () => {
         return;
       }
 
-   
       if (file.size > 30 * 1024 * 1024) {
         Swal.fire({
           icon: "error",
@@ -133,6 +153,8 @@ const SellProduct = () => {
         formDataToSend.append("photo", imgFile);
         formDataToSend.append("id_user", user.id);
         formDataToSend.append("tipo", formData.tipo);
+        formDataToSend.append("talla", formData.talla);
+        formDataToSend.append("descripcion", formData.descripcion);
 
         return addProduct(formDataToSend);
       });
@@ -152,6 +174,8 @@ const SellProduct = () => {
         titulo: "",
         new_price: "",
         tipo: "",
+        talla: "",
+        descripcion: "",
       });
       setImgFile(null);
       setImgPreview(null);
@@ -228,6 +252,59 @@ const SellProduct = () => {
           </div>
 
           <div className="input-group">
+            <label htmlFor="tipo" className="input-label">
+              Categoría
+            </label>
+            <select
+              id="tipo"
+              className="sell-product-input"
+              onChange={handleInputChange}
+              name="tipo"
+              value={formData.tipo}
+            >
+              {CATEGORIES.map((category) => (
+                <option key={category.value} value={category.value}>
+                  {category.label}
+                </option>
+              ))}
+            </select>
+          </div>
+
+          {showSizeField && (
+            <div className="input-group size-field-animated">
+              <label htmlFor="talla" className="input-label">
+                <AiOutlineColumnWidth className="input-icon" />
+                Talla
+              </label>
+              <input
+                id="talla"
+                className="sell-product-input"
+                onChange={handleInputChange}
+                type="text"
+                name="talla"
+                placeholder="Ej: S, M, L, XL, 8, 9, 10..."
+                value={formData.talla}
+              />
+            </div>
+          )}
+
+          <div className="input-group">
+            <label htmlFor="descripcion" className="input-label">
+              <AiOutlineFileText className="input-icon" />
+              Descripción del producto
+            </label>
+            <textarea
+              id="descripcion"
+              className="sell-product-textarea"
+              onChange={handleInputChange}
+              name="descripcion"
+              placeholder=" Describe las características, estado, materiales y otros detalles importantes del producto..."
+              value={formData.descripcion}
+              rows="4"
+            />
+          </div>
+
+          <div className="input-group">
             <label htmlFor="product-image" className="input-label">
               <AiOutlineCamera className="input-icon" />
               Imagen
@@ -246,25 +323,6 @@ const SellProduct = () => {
               </label>
             </div>
           </div>
-
-          <div className="input-group">
-            <label htmlFor="tipo" className="input-label">
-              Categoría
-            </label>
-            <select
-              id="tipo"
-              className="sell-product-input"
-              onChange={handleInputChange}
-              name="tipo"
-              value={formData.tipo}
-            >
-              {CATEGORIES.map((category) => (
-                <option key={category.value} value={category.value}>
-                  {category.label}
-                </option>
-              ))}
-            </select>
-          </div>
         </div>
 
         <div className="sell-product-preview">
@@ -281,6 +339,16 @@ const SellProduct = () => {
                 <h3>{formData.titulo || "Título del producto"}</h3>
                 <p className="product-price">{formattedPrice}</p>
                 <p className="product-category">{selectedCategory}</p>
+                {formData.talla && showSizeField && (
+                  <p className="product-size">Talla: {formData.talla}</p>
+                )}
+                {formData.descripcion && (
+                  <p className="product-description">
+                    {formData.descripcion.length > 100
+                      ? `${formData.descripcion.substring(0, 100)}...`
+                      : formData.descripcion}
+                  </p>
+                )}
               </div>
             </div>
           ) : (
@@ -300,7 +368,6 @@ const SellProduct = () => {
         onClick={handleAddProduct}
         disabled={!isFormValid || isSubmitting}
       >
-
         {isSubmitting ? (
           <>Procesando...</>
         ) : (
@@ -309,7 +376,6 @@ const SellProduct = () => {
           </>
         )}
       </button>
-
     </div>
   );
 };

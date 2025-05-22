@@ -36,3 +36,7 @@
     transform: rotate(360deg);
   }
 }
+/* Ocultar overlay de errores de Webpack en desarrollo */
+#webpack-dev-server-client-overlay {
+  display: none !important;
+}

@@ -1,211 +1,260 @@
 .direcciones-app {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 20px;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
-  
-  .titulo-seccion {
-    color: #2c3e50;
-    text-align: center;
-    margin-bottom: 30px;
-    font-size: 28px;
-  }
-  
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.titulo-seccion {
+  color: #2c3e50;
+  text-align: center;
+  margin-bottom: 30px;
+  font-size: 28px;
+}
+
+.direcciones-contenedor {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 30px;
+}
+
+@media (min-width: 992px) {
   .direcciones-contenedor {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 30px;
+    grid-template-columns: 1fr 1fr;
   }
-  
-  @media (min-width: 992px) {
-    .direcciones-contenedor {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-  
-  .formulario-direccion {
-    background: #ffffff;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .formulario-direccion h3 {
-    color: #000000;
-    margin-bottom: 20px;
-    font-size: 20px;
-  }
-  
+}
+
+.formulario-direccion {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.formulario-direccion h3 {
+  color: #000000;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 15px;
+  margin-bottom: 20px;
+}
+
+@media (min-width: 576px) {
   .form-grid {
-    display: grid;
-    grid-template-columns: 1fr;
-    gap: 15px;
-    margin-bottom: 20px;
+    grid-template-columns: 1fr 1fr;
   }
-  
-  @media (min-width: 576px) {
-    .form-grid {
-      grid-template-columns: 1fr 1fr;
-    }
-  }
-  
-  .form-group {
-    margin-bottom: 15px;
-  }
-  
-  .form-group label {
-    display: block;
-    margin-bottom: 5px;
-    font-weight: 600;
-    color: #34495e;
-  }
-  
-  .form-group input,
-  .form-group select {
-    width: 100%;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    font-size: 14px;
-    transition: border-color 0.3s;
-  }
-  
-  .form-group input:focus,
-  .form-group select:focus {
-    border-color: #3498db;
-    outline: none;
-  }
-  
-  .boton-primario {
-    background-color: #1abc9c;
-    color: white;
-    border: none;
-    padding: 12px 20px;
-    border-radius: 5px;
-    cursor: pointer;
-    font-size: 16px;
-    font-weight: 600;
-    width: 100%;
-    transition: background-color 0.3s;
-  }
-  
-  .boton-primario:hover {
-    background-color: #2980b9;
-  }
-  
-  .lista-direcciones {
-    background: #ffffff;
-    padding: 25px;
-    border-radius: 10px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  }
-  
-  .lista-direcciones h3 {
-    color: #000000;
-    margin-bottom: 20px;
-    font-size: 20px;
-  }
-  
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: 600;
+  color: #34495e;
+}
+
+.form-group input,
+.form-group select {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  font-size: 14px;
+  transition: border-color 0.3s;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+  border-color: #3498db;
+  outline: none;
+}
+
+.boton-primario {
+  background-color: #1abc9c;
+  color: white;
+  border: none;
+  padding: 12px 20px;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: 600;
+  width: 100%;
+  transition: background-color 0.3s;
+}
+
+.boton-primario:hover {
+  background-color: #2980b9;
+}
+
+.lista-direcciones {
+  background: #ffffff;
+  padding: 25px;
+  border-radius: 10px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+}
+
+.lista-direcciones h3 {
+  color: #000000;
+  margin-bottom: 20px;
+  font-size: 20px;
+}
+
 .grid-direcciones {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.75rem;
-  margin-top: 0.75rem;
+display: flex;
+flex-wrap: wrap;
+gap: 0.75rem;
+margin-top: 0.75rem;
 }
 
 /* Nueva tarjeta de dirección compacta */
 .tarjeta-direccion {
-  flex: 1 0 calc(33.333% - 0.75rem); /* 3 por fila con espacio entre ellas */
-  min-width: 200px;
-  max-width: calc(33.333% - 0.75rem);
-  border: 1px solid #e6e6e6;
-  border-radius: 8px;
-  padding: 0.75rem;
-  background: #fff;
-  transition: all 0.2s ease;
-  box-sizing: border-box;
+flex: 1 0 calc(33.333% - 0.75rem); /* 3 por fila con espacio entre ellas */
+min-width: 200px;
+max-width: calc(33.333% - 0.75rem);
+border: 1px solid #e6e6e6;
+border-radius: 8px;
+padding: 0.75rem;
+background: #fff;
+transition: all 0.2s ease;
+box-sizing: border-box;
+position: relative;
 }
-  
-  .tarjeta-direccion:hover {
-    transform: translateY(-3px);
-    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
-  }
-  
-  .tarjeta-header {
-    display: flex;
-    justify-content: space-between;
-    margin-bottom: 10px;
-  }
-  
-  .badge-vivienda {
-    background-color: #e3f2fd;
-    color: #1abc9c;
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-  }
-  
-  .badge-departamento {
-    background-color: #e8f5e9;
-    color: #388e3c;
-    padding: 3px 8px;
-    border-radius: 12px;
-    font-size: 12px;
-    font-weight: 600;
-  }
-  
-  .tarjeta-body p {
-    margin: 5px 0;
-    color: #555;
-  }
-  
-  .etiqueta {
-    font-weight: 600;
-    color: #333;
-  }
-  
-  .sin-direcciones {
-    text-align: center;
-    padding: 20px;
-    color: #7f8c8d;
-    background-color: #f9f9f9;
-    border-radius: 5px;
-  }
-  
-  .sin-direcciones p {
-    margin: 5px 0;
-  }
-  .error {
-    border-color: #ff3860 !important;
-  }
-  
-  .error-message {
-    color: #ff3860;
-    font-size: 0.8rem;
-    margin-top: 0.25rem;
-  }
-  
-  .guardar-btn:disabled {
-    background-color: #cccccc;
-    cursor: not-allowed;
-  }
-  
-  .eliminar-btn {
-    position: absolute;
-    top: 5px;
-    right: 5px;
-    background: #ff3860;
-    color: white;
-    border: none;
-    border-radius: 50%;
-    width: 25px;
-    height: 25px;
-    cursor: pointer;
-  }
-  
+
+.tarjeta-direccion:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+}
+
+.tarjeta-header {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.badge-vivienda {
+  background-color: #e3f2fd;
+  color: #1abc9c;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.badge-departamento {
+  background-color: #e8f5e9;
+  color: #388e3c;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-size: 12px;
+  font-weight: 600;
+}
+
+.tarjeta-body {
+  margin-bottom: 15px;
+}
+
+.tarjeta-body p {
+  margin: 5px 0;
+  color: #555;
+}
+
+.etiqueta {
+  font-weight: 600;
+  color: #333;
+}
+
+/* Botón eliminar mejorado */
+.boton-eliminar {
+  margin-top: 25px;
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+  border: none;
+  padding: 7px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 10px;
+  font-weight: 500;
+  width: 100%;
+  transition: all 0.3s ease;
+  box-shadow: 0 2px 4px rgba(231, 76, 60, 0.2);
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+}
+
+.boton-eliminar:hover {
+  background: linear-gradient(135deg, #c0392b, #a93226);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 8px rgba(231, 76, 60, 0.3);
+}
+
+.boton-eliminar:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 4px rgba(231, 76, 60, 0.2);
+}
+
+/* Icono para el botón eliminar */
+.boton-eliminar::before {
+  content: "🗑️";
+  font-size: 14px;
+}
+
+/* Alternativa con icono X */
+.boton-eliminar.icon-x::before {
+  content: "✕";
+  font-size: 12px;
+  font-weight: bold;
+}
+
+.sin-direcciones {
+  text-align: center;
+  padding: 20px;
+  color: #7f8c8d;
+  background-color: #f9f9f9;
+  border-radius: 5px;
+}
+
+.sin-direcciones p {
+  margin: 5px 0;
+}
+
+.error {
+  border-color: #ff3860 !important;
+}
+
+.error-message {
+  color: #ff3860;
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+}
+
+.guardar-btn:disabled {
+  background-color: #cccccc;
+  cursor: not-allowed;
+}
+
+/* Responsividad para tarjetas */
+@media (max-width: 768px) {
   .tarjeta-direccion {
-    position: relative;
-    /* ...otros estilos existentes... */
+    flex: 1 0 calc(50% - 0.75rem);
+    max-width: calc(50% - 0.75rem);
   }
+}
+
+@media (max-width: 480px) {
+  .tarjeta-direccion {
+    flex: 1 0 100%;
+    max-width: 100%;
+  }
+}
