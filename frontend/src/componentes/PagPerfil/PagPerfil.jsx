@@ -32,6 +32,13 @@ const PagPerfil = () => {
   const [pedidosDelVendedor, setPedidosDelVendedor] = useState([]);
   const [loading, setLoading] = useState(false);
 
+  // Estados para controlar qué datos se han cargado
+  const [datosInicalesCargados, setDatosInicalesCargados] = useState(false);
+  const [pedidosPendientesCargados, setPedidosPendientesCargados] =
+    useState(false);
+  const [pedidosCompletosCargados, setPedidosCompletosCargados] =
+    useState(false);
+
   // Verificar si el usuario es administrador
   useEffect(() => {
     if (userlist.length > 0) {
@@ -57,28 +64,14 @@ const PagPerfil = () => {
 
   // Cargar datos iniciales cuando el usuario no es admin
   useEffect(() => {
-    if (userlist.length > 0 && !isAdmin && id_user) {
+    if (userlist.length > 0 && !isAdmin && id_user && !datosInicalesCargados) {
       cargarDatosIniciales();
     }
-  }, [userlist, isAdmin, id_user]);
-
-  // Manejar carga de datos cuando id_user está disponible y hay una sección activa
-  useEffect(() => {
-    if (id_user && id_user !== "") {
-      if (activeSection === "pedidos" && todosLosPedidos.length === 0) {
-        obtenerPedidosPendientes();
-      } else if (
-        activeSection === "pedidosCompletos" &&
-        pedidosCompletos.length === 0
-      ) {
-        obtenerPedidosCompletos();
-      }
-    }
-  }, [id_user, activeSection]);
+  }, [userlist, isAdmin, id_user, datosInicalesCargados]);
 
   // Función para cargar todos los datos iniciales
   const cargarDatosIniciales = async () => {
-    if (!id_user) return;
+    if (!id_user || datosInicalesCargados) return;
 
     try {
       setLoading(true);
@@ -117,6 +110,8 @@ const PagPerfil = () => {
           ? pedidosVendedorResponse.data
           : []
       );
+
+      setDatosInicalesCargados(true);
     } catch (error) {
       console.error("Error al cargar datos iniciales:", error);
     } finally {
@@ -126,8 +121,7 @@ const PagPerfil = () => {
 
   // Función para obtener pedidos pendientes (solo cuando se necesite)
   const obtenerPedidosPendientes = async () => {
-    // Verificar que id_user tenga un valor válido
-    if (!id_user || id_user === "" || todosLosPedidos.length > 0) {
+    if (!id_user || id_user === "" || pedidosPendientesCargados) {
       console.log("No se puede obtener pedidos pendientes. id_user:", id_user);
       return;
     }
@@ -142,6 +136,7 @@ const PagPerfil = () => {
 
       console.log("Respuesta pedidos pendientes:", response.data);
       setTodosLosPedidos(Array.isArray(response.data) ? response.data : []);
+      setPedidosPendientesCargados(true);
     } catch (error) {
       console.error("Error al obtener pedidos pendientes:", error);
       setTodosLosPedidos([]);
@@ -152,8 +147,7 @@ const PagPerfil = () => {
 
   // Función para obtener pedidos completados (solo cuando se necesite)
   const obtenerPedidosCompletos = async () => {
-    // Verificar que id_user tenga un valor válido
-    if (!id_user || id_user === "" || pedidosCompletos.length > 0) {
+    if (!id_user || id_user === "" || pedidosCompletosCargados) {
       console.log("No se puede obtener pedidos completados. id_user:", id_user);
       return;
     }
@@ -171,6 +165,7 @@ const PagPerfil = () => {
 
       console.log("Respuesta pedidos completados:", response.data);
       setPedidosCompletos(Array.isArray(response.data) ? response.data : []);
+      setPedidosCompletosCargados(true);
     } catch (error) {
       console.error("Error al obtener pedidos completados:", error);
       setPedidosCompletos([]);
@@ -181,6 +176,15 @@ const PagPerfil = () => {
 
   // Manejar cambio de sección activa
   const handleSectionChange = (section) => {
+    // Limpiar datos de secciones anteriores para evitar interferencias
+    if (activeSection !== section) {
+      if (activeSection === "pedidos") {
+        // Opcional: podrías limpiar todosLosPedidos si quieres recargar cada vez
+        // setTodosLosPedidos([]);
+        // setPedidosPendientesCargados(false);
+      }
+    }
+
     setActiveSection(section);
 
     // Solo cargar datos si id_user tiene un valor válido
@@ -189,14 +193,11 @@ const PagPerfil = () => {
       return;
     }
 
-    // Cargar datos específicos según la sección
-    if (section === "pedidos" && todosLosPedidos.length === 0) {
+    // Cargar datos específicos según la sección solo si no se han cargado antes
+    if (section === "pedidos" && !pedidosPendientesCargados) {
       console.log("Cargando pedidos pendientes...");
       obtenerPedidosPendientes();
-    } else if (
-      section === "pedidosCompletos" &&
-      pedidosCompletos.length === 0
-    ) {
+    } else if (section === "pedidosCompletos" && !pedidosCompletosCargados) {
       console.log("Cargando pedidos completados...");
       obtenerPedidosCompletos();
     }
@@ -391,24 +392,28 @@ const PagPerfil = () => {
                 </div>
               </div>
             )}
-
             {Array.isArray(productos) && productos.length > 0 && (
               <div className="productos-lista">
-                {productos.map((item) => (
-                  <div className="producto-item" key={item.id}>
+                {productos.map((item, index) => (
+                  <div
+                    className="producto-item"
+                    key={`producto-${item.id}-${index}`}
+                  >
                     <Item
                       id={item.id}
                       name={item.titulo}
                       image={`http://localhost:4000/${item.img1}`}
                       new_price={item.new_price}
                     />
-                    <button
-                      className="eliminar-btn"
-                      type="button"
-                      onClick={() => EliminarProducto(item.id)}
-                    >
-                      X
-                    </button>
+                    <div className="button-container">
+                      <button
+                        className="eliminar-btn"
+                        type="button"
+                        onClick={() => EliminarProducto(item.id)}
+                      >
+                        🗑️ Eliminar
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -422,10 +427,16 @@ const PagPerfil = () => {
             <h2 className="section-title">
               <FaBoxOpen /> Pedidos Pendientes
             </h2>
-            {Array.isArray(todosLosPedidos) && todosLosPedidos.length > 0 ? (
+            {/* Solo mostrar pedidos pendientes si estamos en esta sección específica */}
+            {activeSection === "pedidos" &&
+            Array.isArray(todosLosPedidos) &&
+            todosLosPedidos.length > 0 ? (
               <div className="pedidos-lista">
-                {todosLosPedidos.map((pedidoTodo) => (
-                  <div className="pedido-item" key={pedidoTodo.id}>
+                {todosLosPedidos.map((pedidoTodo, index) => (
+                  <div
+                    className="pedido-item"
+                    key={`pedido-pendiente-${pedidoTodo.id}-${index}`}
+                  >
                     <div className="pedido-header">
                       <h3>Producto: {pedidoTodo.titulo}</h3>
                       <p>Status: {pedidoTodo.status}</p>
@@ -480,13 +491,16 @@ const PagPerfil = () => {
                         )}
                       </div>
                     </div>
-                    <button
-                      className="eliminar-btn"
-                      type="button"
-                      onClick={() => CancelarPedido(pedidoTodo.id)}
-                    >
-                      Cancelar Pedido
-                    </button>
+
+                    <div className="button-container">
+                      <button
+                        className="cancelar-pedido-btn"
+                        type="button"
+                        onClick={() => CancelarPedido(pedidoTodo.id)}
+                      >
+                        ❌ Cancelar Pedido
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>
@@ -508,18 +522,16 @@ const PagPerfil = () => {
             <h2 className="section-title">
               <FaHistory /> Pedidos Completados
             </h2>
-            {pedidosCompletos.length === 0 ? (
-              <div className="empty-state">
-                <div className="empty-state-content">
-                  <FaHistory className="empty-icon" />
-                  <h3>No hay pedidos completados</h3>
-                  <p>Los pedidos completados aparecerán aquí</p>
-                </div>
-              </div>
-            ) : (
+            {/* Solo mostrar pedidos completados si estamos en esta sección específica */}
+            {activeSection === "pedidosCompletos" &&
+            Array.isArray(pedidosCompletos) &&
+            pedidosCompletos.length > 0 ? (
               <div className="pedidos-lista">
-                {pedidosCompletos.map((pedido) => (
-                  <div className="pedido-item" key={pedido.id}>
+                {pedidosCompletos.map((pedido, index) => (
+                  <div
+                    className="pedido-item"
+                    key={`pedido-completado-${pedido.id}-${index}`}
+                  >
                     <div className="pedido-header">
                       <h3>{pedido.titulo}</h3>
                       <span className="pedido-status">Completado</span>
@@ -563,6 +575,14 @@ const PagPerfil = () => {
                   </div>
                 ))}
               </div>
+            ) : (
+              <div className="empty-state">
+                <div className="empty-state-content">
+                  <FaHistory className="empty-icon" />
+                  <h3>No hay pedidos completados</h3>
+                  <p>Los pedidos completados aparecerán aquí</p>
+                </div>
+              </div>
             )}
           </div>
         );
@@ -574,11 +594,16 @@ const PagPerfil = () => {
               <FaHistory /> Pedidos por Enviar
             </h2>
 
-            {Array.isArray(pedidosDelVendedor) &&
+            {/* Solo mostrar pedidos del vendedor si estamos en esta sección específica */}
+            {activeSection === "todos-pedidos" &&
+            Array.isArray(pedidosDelVendedor) &&
             pedidosDelVendedor.length > 0 ? (
               <div className="pedidos-lista">
-                {pedidosDelVendedor.map((pedido) => (
-                  <div className="pedido-item" key={pedido.id}>
+                {pedidosDelVendedor.map((pedido, index) => (
+                  <div
+                    className="pedido-item"
+                    key={`pedido-vendedor-${pedido.id}-${index}`}
+                  >
                     <div className="pedido-header">
                       <h3>{pedido.titulo}</h3>
                       <span className="pedido-status">Por enviar</span>
@@ -619,13 +644,15 @@ const PagPerfil = () => {
                         </div>
                       </div>
                     </div>
-                    <button
-                      className="marcar-enviado-btn"
-                      type="button"
-                      onClick={() => enviado(pedido.id)}
-                    >
-                      Marcar como enviado
-                    </button>
+                    <div className="button-container">
+                      <button
+                        className="marcar-enviado-btn"
+                        type="button"
+                        onClick={() => enviado(pedido.id)}
+                      >
+                        📦 Marcar como enviado
+                      </button>
+                    </div>
                   </div>
                 ))}
               </div>

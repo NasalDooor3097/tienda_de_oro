@@ -68,13 +68,6 @@ const LoginAdmin = () => {
         </div>
 
         <p className="loginsignup-login"></p>
-        <div className="loginsignup-agree">
-          <input type="checkbox" name="" id="" />
-          <p>
-            Para continuar, estoy deacuerdo con los terminos de uso y politicas
-            de privacidad
-          </p>
-        </div>
       </div>
     </div>
   );

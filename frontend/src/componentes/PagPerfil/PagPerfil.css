@@ -238,18 +238,20 @@ body {
 }
 
 .eliminar-btn {
-  display: inline-block;
+  display: block; /* Cambiar de inline-block a block */
   background: #e74c3c;
   color: white;
- 
+  align-items: center;
   border-radius: 9px;
   text-decoration: none;
   font-weight: 500;
   transition: all 0.3s ease;
   border: none;
   cursor: pointer;
-  margin-top: 13px;
+  margin: 13px auto 0; /* Centrar horizontalmente */
   font-size: 1rem;
+  width: fit-content; /* Solo el ancho necesario */
+  padding: 8px 16px; /* Agregar padding para mejor apariencia */
 }
 
 .eliminar-btn:hover {
@@ -452,5 +454,145 @@ body {
   .pedido-image {
     width: 100%;
     height: auto;
+  }
+}
+/* Botones mejorados */
+.eliminar-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #e74c3c, #c0392b);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  margin-top: 15px;
+  min-width: 120px;
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.2);
+}
+
+.eliminar-btn:hover {
+  background: linear-gradient(135deg, #c0392b, #a93226);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(231, 76, 60, 0.3);
+}
+
+.eliminar-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(231, 76, 60, 0.2);
+}
+
+.marcar-enviado-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #27ae60, #229954);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.95rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  margin-top: 15px;
+  min-width: 160px;
+  box-shadow: 0 2px 8px rgba(39, 174, 96, 0.2);
+}
+
+.marcar-enviado-btn:hover {
+  background: linear-gradient(135deg, #229954, #1e8449);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(39, 174, 96, 0.3);
+}
+
+.marcar-enviado-btn:active {
+  transform: translateY(0);
+  box-shadow: 0 2px 8px rgba(39, 174, 96, 0.2);
+}
+
+/* Contenedor de botones para mejor organización */
+.button-container {
+  display: flex;
+  gap: 10px;
+  margin-top: 15px;
+  flex-wrap: wrap;
+}
+
+/* Mejoras para los items de productos */
+.producto-item {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+  position: relative;
+  padding-bottom: 15px;
+}
+
+.producto-item:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+/* Mejoras para los items de pedidos */
+.pedido-item {
+  background: white;
+  border-radius: 10px;
+  overflow: hidden;
+  box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
+  padding: 20px;
+  transition: all 0.3s ease;
+}
+
+.pedido-item:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.1);
+}
+
+/* Botón de cancelar pedido (variante del eliminar) */
+.cancelar-pedido-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #f39c12, #e67e22);
+  color: white;
+  padding: 8px 16px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-weight: 500;
+  font-size: 0.9rem;
+  transition: all 0.3s ease;
+  border: none;
+  cursor: pointer;
+  margin-top: 15px;
+  min-width: 140px;
+  box-shadow: 0 2px 8px rgba(243, 156, 18, 0.2);
+}
+
+.cancelar-pedido-btn:hover {
+  background: linear-gradient(135deg, #e67e22, #d35400);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(243, 156, 18, 0.3);
+}
+
+/* Responsive para botones */
+@media (max-width: 768px) {
+  .eliminar-btn,
+  .marcar-enviado-btn,
+  .cancelar-pedido-btn {
+    width: 100%;
+    min-width: unset;
+    margin-top: 10px;
+  }
+  
+  .button-container {
+    flex-direction: column;
   }
 }
